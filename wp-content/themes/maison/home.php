@@ -20,8 +20,8 @@
                         <img src="<?php echo get_the_post_thumbnail_url(null, 'thumbnail') ?>" class="responsive" />
                     </a>
                 </figure>
-                <p class="post-date"><?php echo get_the_date(); ?></p>
-                <h5 class="u-fwsb"><a href="<?php echo $post_link; ?>"><?php the_title(); ?></a></h5>
+                <p class="post-date u-mb2"><?php echo get_the_date(); ?></p>
+                <h5 class="u-fwsb post-item--title"><a href="<?php echo $post_link; ?>"><?php the_title(); ?></a></h5>
                 <?php the_excerpt(); ?>
             </div>
         <?php

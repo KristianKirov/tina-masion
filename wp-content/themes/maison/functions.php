@@ -386,3 +386,74 @@ function maison_checkout_update_order_meta($order_id, $data) {
 add_action( 'woocommerce_checkout_update_order_meta', 'maison_checkout_update_order_meta', 10, 2);
 
 add_filter('woocommerce_ship_to_different_address_checked', '__return_false');
+
+function maison_woocommerce_sale_flash($markup, $post, $product) {
+	if (!$product->is_in_stock()) {
+		return ''; // Do not display discount, when the product is out of stock
+	}
+
+	$product_type = $product->get_type();
+	if ($product_type == 'variable') {
+		$prices = $product->get_variation_prices( true );
+		if ( empty( $prices['price'] ) ) {
+			return $markup;
+		} else {
+			$active_prices = $prices['price'];
+			$regular_prices = $prices['regular_price'];
+			$max_percent_discount = 0;
+			foreach ( $active_prices as $variation_id => $variation_price ) {
+				if (!isset($regular_prices[$variation_id])) {
+					continue;
+				}
+
+				$regular_price = $regular_prices[$variation_id];
+				if ($variation_price >= $regular_price) {
+					continue;
+				}
+				$variation_percent_discount = round( ( ( $regular_price - $variation_price ) * 100) / $regular_price );
+				if ($variation_percent_discount > $max_percent_discount) {
+					$max_percent_discount = $variation_percent_discount;
+				}
+			}
+
+			if ($max_percent_discount == 0) {
+				return $markup;
+			}
+			else {
+				return '<span class="onsale">-' . $max_percent_discount . '%</span>';
+			}
+		}
+	}
+	elseif ($product_type == 'simple') {
+		$percentage = round( ( ( $product->get_regular_price() - $product->get_sale_price() ) * 100) / $product->get_regular_price() );
+		return '<span class="onsale">-' . $percentage . '%</span>';
+	}
+	else {
+		return $markup;
+	}
+}
+add_filter('woocommerce_sale_flash', 'maison_woocommerce_sale_flash', 10, 3);
+
+function maison_woocommerce_before_shop_loop_item_title() {
+	global $product;
+    if ( !$product->is_in_stock() ) {
+        echo '<span class="soldout">Sold out!</span>';
+    }
+}
+add_action('woocommerce_before_shop_loop_item_title', 'maison_woocommerce_before_shop_loop_item_title');
+
+function maison_woocommerce_format_sale_price($price_markup, $regular_price, $sale_price) {
+	$price = '<ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins> <del>' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del>';
+
+	return $price;
+}
+add_filter('woocommerce_format_sale_price', 'maison_woocommerce_format_sale_price', 10, 3);
+
+function maison_woocommerce_product_single_add_to_cart_text($text, $product) {
+	if ( !$product->is_in_stock() ) {
+        return 'Sold Out!';
+	}
+	
+	return $text;
+}
+add_filter('woocommerce_product_single_add_to_cart_text', 'maison_woocommerce_product_single_add_to_cart_text', 10, 2);

@@ -4,9 +4,12 @@ $product_thumbnail = wp_get_attachment_image_src($product_thumbnail_id, 'full');
 while ( have_posts() ) :
 the_post(); ?>
 <div class="product-modal-content">
-    <div class="row row--no-gutter">
+    <div class="row row--no-gutter article-details">
         <div class="col-sm-11">
-            <img src="<?php echo $product_thumbnail[0]; ?>" class="responsive" />
+            <div class="u-pr">
+                <?php woocommerce_show_product_sale_flash(); ?>
+                <img src="<?php echo $product_thumbnail[0]; ?>" class="responsive" />
+            </div>
         </div>
         <div class="col-sm-9">
             <div class="product-details">

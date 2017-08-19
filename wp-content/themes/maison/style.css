@@ -849,6 +849,21 @@ h1.small > small {
     margin-top: 15px;
 }
 
+.product-details .price ins {
+    color: #101010;
+    margin-right: 10px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.product-details .price del {
+    font-size: 14px;
+}
+
+.product-details--alt .price del {
+    font-size: 18px;
+}
+
 h2, .h2 {
     margin-bottom: 40px;
 }
@@ -1103,15 +1118,36 @@ img.responsive, video.responsive {
     transform: translateX(-50%) translateY(0);
 }
 
+.article-details .onsale,
 .article .onsale {
     position: absolute;
     z-index: 5;
-    border-radius: 50%;
-    background-color: #00b9eb;
-    padding: 13px 5px;
+    background-color: #d5246b;
+    padding: 6px 10px;
     color: #fff;
-    top: 5px;
-    right: 5px;
+    top: 20px;
+    left: 0;
+}
+
+.article-details .onsale {
+    font-size: 24px;
+    padding: 12px 20px;
+    top: 40px;
+}
+
+.article .soldout {
+    position: absolute;
+    background-color: #021639;
+    padding: 6px 10px;
+    color: #fff;
+    top: 20px;
+    left: 0;
+
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    letter-spacing: .2em;
 }
 
 /*.article > a:hover {
@@ -1315,7 +1351,7 @@ footer.mobile-only .scroll-home {
 }
 
 .btn[disabled], .btn.disabled {
-    opacity: .7;
+    opacity: .5;
 }
 
 .hover-wrapper {
@@ -1572,6 +1608,10 @@ table th {
     text-transform: uppercase;
 }
 
+.post-item--title {
+    margin-bottom: 14px;
+}
+
 .posts-pager {
     font-size: 13px;
     color: #101010;
@@ -1673,6 +1713,12 @@ blockquote {
 
 .article .price {
     color: #8a8a92;
+}
+
+.article .price ins {
+    color: #101010;
+    margin-right: 10px;
+    text-decoration: none;
 }
 
 .lity {
