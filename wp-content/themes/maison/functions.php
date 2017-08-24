@@ -457,3 +457,12 @@ function maison_woocommerce_product_single_add_to_cart_text($text, $product) {
 	return $text;
 }
 add_filter('woocommerce_product_single_add_to_cart_text', 'maison_woocommerce_product_single_add_to_cart_text', 10, 2);
+
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'maison_custom_checkout_field_display_admin_order_meta', 10, 1 );
+function maison_custom_checkout_field_display_admin_order_meta($order){
+	$order_id = $order->get_id();
+	$order_payment_method = $order->get_payment_method();
+	if ($order_payment_method == 'maison_fibank_gateway') {
+		echo '<p><strong>Fibank Transaction Id:</strong> ' . get_post_meta($order_id, '_fibank_transaction_id', true) . '</p>';
+	}
+}

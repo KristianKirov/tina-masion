@@ -13,12 +13,14 @@ if (! defined( 'ABSPATH' )) {
     exit; // Exit if accessed directly
 }
 
+require_once 'functions.php';
+
 add_action( 'plugins_loaded', 'init_maison_fibank_gateway_class' );
 function init_maison_fibank_gateway_class() {
     class WC_Gateway_Maison_Fibank_Gateway extends WC_Payment_Gateway {
         public function __construct() {
             $this->id = 'maison_fibank_gateway';
-            $this->icon = plugin_dir_url( __FILE__ ) . 'assets/3d_secure.gif';
+            $this->icon = plugin_dir_url( __FILE__ ) . 'assets/accepted-cards.png';
             $this->has_fields = false;
             $this->method_title = 'Fibank';
             $this->method_description = 'Fibank Payment Gateway';
@@ -42,7 +44,8 @@ function init_maison_fibank_gateway_class() {
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
             if ($this->enabled == 'yes') {
-                add_action( 'woocommerce_api_wc_gateway_maison_fibank', 'maison_fibank_payment_response' );
+                include_once( dirname( __FILE__ ) . '/woocommerce-gateway-maison-fibank-handler.php' );
+                new Gateway_Maison_Fibank_Gateway_Handler($this->test_mode, $this->certificate_path, $this->certificate_password);
             }
         }
 
@@ -99,9 +102,22 @@ function init_maison_fibank_gateway_class() {
         function process_payment( $order_id ) {
             $order = wc_get_order( $order_id );
 
-            // TODO: register transaction with description = order_id
+            include_once( dirname( __FILE__ ) . '/maison-fibank-client.php' );
+            $fibank_client = new Maison_Fibank_Client($this->test_mode, $this->certificate_path, $this->certificate_password);
+            $order_total = $order->get_total();
+            $client_ip = get_client_ip();
+            $register_transaction_result = $fibank_client->register_transaction($order_total, Maison_Fibank_Currency::$USD, $client_ip, $order_id);
+            if (!$register_transaction_result['success']) {
+                $register_transaction_error = $register_transaction_result['data'];
+                $error_message = 'Error on registering Fibank transaction: ' . $register_transaction_error;
+                $order->add_order_note($error_message);
 
-            $fibank_transaction_id = 'asdasd';
+                wc_add_notice($error_message, 'error');
+
+                return;
+            }
+            
+            $fibank_transaction_id = $register_transaction_result['transaction_id'];
             update_post_meta( $order->get_id(), '_fibank_transaction_id', $fibank_transaction_id );
             
             $fiban_payment_base_url = $this->test_mode ? 'https://mdpay-test.fibank.bg/ecomm/ClientHandler' : 'https://mdpay.fibank.bg/ecomm/ClientHandler';
@@ -113,40 +129,6 @@ function init_maison_fibank_gateway_class() {
             );
         }
     }
-}
-
-function maison_fibank_payment_response() {
-    if ( empty( $_POST )) {
-        wp_die( 'Maison Fibank Request Failure', 'Maison Fibank', array( 'response' => 500 ) );
-    }
-
-    $fibank_transaction_id = $_POST['trans_id'];
-    $order_id = $_POST['description'];
-
-    $order = wc_get_order($order_id);
-    $stored_fibank_transaction_id = get_post_meta( $order->get_id(), '_fibank_transaction_id', true );
-    if ($stored_fibank_transaction_id != $fibank_transaction_id) {
-        
-    }
-
-    // if ok
-    // Order is already payed
-        if (!$order->has_status( wc_get_is_paid_statuses() )) {
-            $order->add_order_note( $note );
-            $order->payment_complete( $txn_id );
-        }
-    // Else mark as failed or canceled
-
-    $order_processing_redirect_url = '';
-    if (true) {
-        $order_processing_redirect_url = $order->get_checkout_order_received_url();
-    }
-    else {
-        $order_processing_redirect_url = $order->get_cancel_order_url();
-    }
-
-    wp_redirect( $order_processing_redirect_url );
-    exit;
 }
 
 function add_maison_fibank_gateway_class($methods) {

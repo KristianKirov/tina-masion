@@ -1,0 +1,465 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Fibank Secure Payment</title>
+</head>
+
+<body>
+
+	%%javascript%%
+
+	<style type="text/css">
+		/* START NORMALIZE */
+
+		html {
+			font-family: sans-serif;
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: 100%;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		main,
+		menu,
+		nav,
+		section,
+		summary {
+			display: block;
+		}
+
+		audio,
+		canvas,
+		progress,
+		video {
+			display: inline-block;
+			vertical-align: baseline;
+		}
+
+		audio:not([controls]) {
+			display: none;
+			height: 0;
+		}
+
+		[hidden],
+		template {
+			display: none;
+		}
+
+		a {
+			background-color: transparent;
+		}
+
+		a:active,
+		a:hover {
+			outline: 0;
+		}
+
+		abbr[title] {
+			border-bottom: 1px dotted;
+		}
+
+		b,
+		strong {
+			font-weight: bold;
+		}
+
+		dfn {
+			font-style: italic;
+		}
+
+		h1 {
+			font-size: 2em;
+			margin: 0.67em 0;
+		}
+
+		mark {
+			background: #ff0;
+			color: #000;
+		}
+
+		small {
+			font-size: 80%;
+		}
+
+		sub,
+		sup {
+			font-size: 75%;
+			line-height: 0;
+			position: relative;
+			vertical-align: baseline;
+		}
+
+		sup {
+			top: -0.5em;
+		}
+
+		sub {
+			bottom: -0.25em;
+		}
+
+		img {
+			border: 0;
+		}
+
+		svg:not(:root) {
+			overflow: hidden;
+		}
+
+		figure {
+			margin: 1em 40px;
+		}
+
+		hr {
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+			height: 0;
+		}
+
+		pre {
+			overflow: auto;
+		}
+
+		code,
+		kbd,
+		pre,
+		samp {
+			font-family: monospace, monospace;
+			font-size: 1em;
+		}
+
+		button,
+		input,
+		optgroup,
+		select,
+		textarea {
+			color: inherit;
+			font: inherit;
+			margin: 0;
+		}
+
+		button {
+			overflow: visible;
+		}
+
+		button,
+		select {
+			text-transform: none;
+		}
+
+		button,
+		html input[type="button"],
+		input[type="reset"],
+		input[type="submit"] {
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		button[disabled],
+		html input[disabled] {
+			cursor: default;
+		}
+
+		button::-moz-focus-inner,
+		input::-moz-focus-inner {
+			border: 0;
+			padding: 0;
+		}
+
+		input {
+			line-height: normal;
+		}
+
+		input[type="checkbox"],
+		input[type="radio"] {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 0;
+		}
+
+		input[type="number"]::-webkit-inner-spin-button,
+		input[type="number"]::-webkit-outer-spin-button {
+			height: auto;
+		}
+
+		input[type="search"] {
+			-webkit-appearance: textfield;
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+		}
+
+		input[type="search"]::-webkit-search-cancel-button,
+		input[type="search"]::-webkit-search-decoration {
+			-webkit-appearance: none;
+		}
+
+		fieldset {
+			border: 1px solid #c0c0c0;
+			margin: 0 2px;
+			padding: 0.35em 0.625em 0.75em;
+		}
+
+		legend {
+			border: 0;
+			padding: 0;
+		}
+
+		textarea {
+			overflow: auto;
+		}
+
+		optgroup {
+			font-weight: bold;
+		}
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+			line-height: inherit;
+			font-size: inherit;
+		}
+
+		td,
+		th {
+			padding: 0;
+		}
+
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		/* END NORMALIZE */
+
+		.clearfix:before,
+		.clearfix:after {
+			content: " ";
+  			display: table;
+		}
+
+		.clearfix:after {
+			clear: both;
+		}
+
+		.row {
+			font-size: 0;
+			margin-left: -10px;
+    		margin-right: -10px;
+		}
+
+		.col-summary {
+			vertical-align: bottom;
+			text-align: right;
+		}
+
+		.col {
+			display: inline-block;
+			width: 50%;
+			font-size: 14px;
+			position: relative;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+
+		@media (max-width: 767px) {
+			.col {
+				width: 100%;
+			}
+		}
+
+		body {
+			font-size: 14px;
+			line-height: 1.7;
+			color: #8a8a92;
+			background-color: #f3f3f3;
+			font-family: Helvetica, Arial, sans-serif;
+		}
+
+		.header {
+			border-bottom: 1px solid #cfd0d5;
+			background-color: #f3f3f3;
+			text-align: center;
+		}
+
+		.logo {
+			display: inline-block;
+			padding: 21px 10px;
+		}
+
+		.page-wrapper {
+			margin: 0 auto;
+			max-width: 960px;
+			padding: 20px;
+		}
+
+		.content {
+			padding: 20px;
+			border: 1px solid #e4e4e4;
+			border-radius: 3px;
+			background-color: #fff;
+			margin-bottom: 20px;
+		}
+
+		h4 {
+			font-family: Helvetica, Arial, sans-serif;
+			line-height: 1.1;
+			font-size: 24px;
+			letter-spacing: 0.1904762em;
+			font-weight: 300;
+			text-transform: capitalize;
+			margin-top: 0px;
+			margin-bottom: 20px;
+			color: #101010;
+		}
+
+		.label {
+			text-transform: uppercase;
+		}
+
+		.payment-table {
+			width: 100%;
+		}
+
+		.payment-table td {
+			padding-bottom: 10px;
+		}
+
+		input[type="text"] {
+			border: 1px solid #e4e4e4;
+			border-radius: 3px;
+			padding: 10px 8px;
+			font-size: 12px;
+		}
+
+		.full-width-text input[type="text"] {
+			width: 100%;
+		}
+
+		span.ecomm_validation_error {
+			color: red;
+			display: block;
+		}
+
+		.button {
+			border: none;
+			border-radius: 3px;
+			padding: 11px 8px;
+			font-size: 12px;
+			width: 200px;
+			max-width: 100%;
+			background-color: #222222;
+			color: #fff;
+			text-transform: uppercase;
+		}
+
+		.button:hover,
+		.button:active,
+		.button:focus {
+			background-color: #000;
+			text-decoration: none;
+		}
+
+		.footer {
+			border-top: 1px solid #cfd0d5;
+			text-transform: uppercase;
+			font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+			font-size: 13px;
+			letter-spacing: 0.153846em;
+			padding-top: 20px;
+		}
+
+		.fr {
+			float: right;
+		}
+
+		.responsive {
+			max-width: 100%;
+		}
+
+		.-mb2 {
+			margin-bottom: 20px;
+		}
+	</style>
+	<div class="header">
+		<a href="http://maisontina.com/" class="logo">
+			<img width="38" height="31" src="images/maison_tina/maison-small-black.png" />
+		</a>
+	</div>
+	<div class="page-wrapper">
+		<div class="content">
+			<h4>Данни за карта</h4>
+			<div class="row -mb2">
+				<div class="col">
+					<p>%%formdef%%</p>
+					<table class="payment-table" border="0" cellpadding="5" cellspacing="0">
+						<tbody>
+							<tr>
+								<td class="full-width-text">
+									<span class="label">Card Holder Name:</span><br>
+									%%cardname%%
+								</td>
+							</tr>
+							<tr>
+								<td class="full-width-text">
+									<span class="label">Card Number:</span><br>
+									%%cardnr%%
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="label">Card expiration (MM/YY):</span><br>
+									%%expmonth_select%% / %%expyear_select%%
+								</td>
+							</tr>
+							<tr>
+								<td class="full-width-text">
+									<span class="label">CVC2:</span><br>
+									%%cvc2%%
+								</td>
+							</tr>
+							<tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col col-summary">
+					<div><span class="label">Ammount:</span> <strong>%%amount%%</strong></div>
+					<div><span class="label">Currency:</span> <strong>%%ccyalpha%%</strong></div>
+					<div><span class="label">Order Number:</span> <strong>%%description%%</strong></div>
+					<div><img class="responsive" src="images/maison_tina/accepted-cards.png"></div>
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<input value="Submit Payment" type="submit" class="button fr">
+			</div>
+		</div>
+
+		<div class="footer">
+			© Maison Tina
+		</div>
+	</div>
+</body>
+
+</html>
