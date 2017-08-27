@@ -9,21 +9,25 @@ function maison_woocommerce_support() {
 add_action('after_setup_theme', 'maison_woocommerce_support');
 
 function maison_scripts() {
+	$maison_theme = wp_get_theme();
+	$maison_theme_version = $maison_theme->get('Version');
+	$resources_suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
 	$has_products_list = is_shop() || is_product_category() || is_product();
 	$is_checkout = is_checkout();
 	
-    wp_enqueue_style('bootstrap', get_theme_file_uri('/assets/css/bootstrap.css'), array(), '0.0.5');
+    wp_enqueue_style('bootstrap', get_theme_file_uri("/assets/css/bootstrap$resources_suffix.css"), array(), $maison_theme_version);
 	wp_enqueue_style('litebox-css', get_theme_file_uri('/assets/css/lity.min.css'), array(), '2.2.2');
-    wp_enqueue_style('maison-style', get_stylesheet_uri(), array('bootstrap'), '0.0.5');
-    wp_enqueue_style('icons', get_theme_file_uri('/assets/css/fontello.css'), array(), '0.0.5');
+    wp_enqueue_style('maison-style', get_stylesheet_directory_uri() . "/style$resources_suffix.css", array('bootstrap'), $maison_theme_version);
+    wp_enqueue_style('icons', get_theme_file_uri("/assets/css/fontello$resources_suffix.css"), array(), $maison_theme_version);
 	if ($is_checkout) {
-		wp_enqueue_style('checkout-style', get_theme_file_uri('/assets/css/checkout.css'), array('maison-style'), '0.0.5');
+		wp_enqueue_style('checkout-style', get_theme_file_uri("/assets/css/checkout$resources_suffix.css"), array('maison-style'), $maison_theme_version);
 	}
 
 	$frontend_data = array(
 		'ajaxUrl' => admin_url('admin-ajax.php'));
 
-    wp_register_script( 'maison-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '0.0.5', true );
+    wp_register_script( 'maison-global', get_theme_file_uri("/assets/js/global$resources_suffix.js" ), array( 'jquery' ), $maison_theme_version, true );
 	wp_localize_script( 'maison-global', 'maison_frontend_data', $frontend_data );
 	wp_enqueue_script ( 'maison-global' );
 
@@ -34,7 +38,7 @@ function maison_scripts() {
 	}
 
 	if ($is_checkout) {
-		wp_enqueue_script('checkout-script', get_theme_file_uri('/assets/js/checkout.js'), array('wc-checkout', 'maison-global'), '0.0.5');
+		wp_enqueue_script('checkout-script', get_theme_file_uri("/assets/js/checkout$resources_suffix.js"), array('wc-checkout', 'maison-global'), $maison_theme_version);
 	}
 }
 add_action('wp_enqueue_scripts', 'maison_scripts');

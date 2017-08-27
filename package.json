@@ -1,0 +1,25 @@
+{
+  "name": "tina-maison-build",
+  "version": "1.0.0",
+  "description": "Builds the Maison Tina website",
+  "main": "gulpfile.js",
+  "scripts": {
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KristianKirov/tina-masion.git"
+  },
+  "author": "Kristian Kirov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KristianKirov/tina-masion/issues"
+  },
+  "homepage": "https://github.com/KristianKirov/tina-masion#readme",
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-clean-css": "3.7.0",
+    "gulp-rename": "1.2.2",
+    "gulp-uglify": "3.0.0"
+  }
+}
