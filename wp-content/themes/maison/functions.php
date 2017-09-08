@@ -470,3 +470,28 @@ function maison_custom_checkout_field_display_admin_order_meta($order){
 		echo '<p><strong>Fibank Transaction Id:</strong> ' . get_post_meta($order_id, '_fibank_transaction_id', true) . '</p>';
 	}
 }
+
+add_action('woocommerce_thankyou_bacs', 'maison_thankyou_bacs_start', 8);
+function maison_thankyou_bacs_start() {
+	?><div class="co-section"><?php
+}
+
+add_action('woocommerce_thankyou_bacs', 'maison_thankyou_bacs_end', 12);
+function maison_thankyou_bacs_end() {
+	?></div>
+	<script>
+		(function($) {
+			$('.wc-bacs-bank-details').addClass('list-clean');
+			var bacsTitle = $('.wc-bacs-bank-details-heading').addClass('co-section-title')[0];
+			if (bacsTitle) {
+				bacsTitle.outerHTML = bacsTitle.outerHTML.replace('h2', 'h4');
+			}
+
+			var bacsAccountNames = $('.wc-bacs-bank-details-account-name').addClass('u-mb0');
+			bacsAccountNames.each(function () {
+				this.outerHTML = this.outerHTML.replace('h3', 'h5');
+			});
+		})(jQuery);
+	</script>
+	<?php
+}

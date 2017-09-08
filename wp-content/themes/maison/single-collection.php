@@ -143,7 +143,7 @@ $show_making = $video_thumbnail && $video;
 
 <?php if ($show_making) : ?>
 <section id="making" class="section section--full section--background u-tac" style="background-image: url(<?php echo $video_thumbnail; ?>)">
-    <a href="https://www.youtube.com/watch?v=<?php echo $video['vid'] ?>" data-lity class="u-pt-2p u-pb-2p u-db">
+    <a href="<?php echo $video; ?>" data-lity class="u-pt-2p u-pb-2p u-db">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.png" class="hover--transparent" />
     </a>
 </section>

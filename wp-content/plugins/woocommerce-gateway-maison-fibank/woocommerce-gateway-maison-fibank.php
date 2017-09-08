@@ -106,7 +106,7 @@ function init_maison_fibank_gateway_class() {
             $fibank_client = new Maison_Fibank_Client($this->test_mode, $this->certificate_path, $this->certificate_password);
             $order_total = $order->get_total();
             $client_ip = get_client_ip();
-            $register_transaction_result = $fibank_client->register_transaction($order_total, Maison_Fibank_Currency::$USD, $client_ip, $order_id);
+            $register_transaction_result = $fibank_client->register_transaction($order_total, Maison_Fibank_Currency::$EUR, $client_ip, $order_id);
             if (!$register_transaction_result['success']) {
                 $register_transaction_error = $register_transaction_result['data'];
                 $error_message = 'Error on registering Fibank transaction: ' . $register_transaction_error;

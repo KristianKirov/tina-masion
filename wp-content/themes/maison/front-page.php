@@ -126,11 +126,11 @@ if ($second_collection_second_image_url): ?>
     </div>
 </section>
 
-<section class="section section--background section--background-outter background--timeless-chic section--white section--overflow-bottom section--centered-heading">
+<section class="section section--background section--background-outter section--white section--overflow-bottom section--centered-heading" style="background-image: url('<?php echo get_field('maisonbackgroundimage'); ?>')">
     <div class="container-fluid">
         <div class="row row--sm-equals">
             <div class="col-sm-14 u-vam">
-                <h2 class="big u-fwt u-mt1 u-mb1">Timeless Chic</h2>
+                <h2 class="big u-fwt u-mt1 u-mb1"><?php echo get_field('maisonsectiontitle'); ?></h2>
             </div>
             <div class="col-sm-6">
                 <div class="overflow-bottom-item u-tac">
@@ -138,12 +138,7 @@ if ($second_collection_second_image_url): ?>
                         <small class="u-db u-mb2">Explore</small>
                         The Maison
                     </h3>
-                    <p>A timeless brand which takes the 
-                    elegance of the past and transforms it to a
-                    modern, feminine style. It creates the perfect
-                    outfit for the irresistible woman that affirms
-                    herself with confidence and
-                    a delicate style.</p>
+                    <p><?php echo get_field('masiondescription'); ?></p>
                     <a class="link" href="<?php echo get_field('maisonpage'); ?>">About</a>
                 </div>
             </div>
