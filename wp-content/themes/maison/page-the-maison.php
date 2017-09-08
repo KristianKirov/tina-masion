@@ -1,12 +1,12 @@
 <?php get_header(); the_post(); ?>
 
-<header class="section section--full section--background section--white section--maison u-pr" style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/the-maison-hero.jpg)">
+<header class="section section--full section--background section--white section--maison u-pr" style="background-image: url(<?php echo get_field('heroimage'); ?>)">
     <section class="section">
         <div class="container-fluid">
             <div class="u-tac">
                 <h4 class="u-fwt">The</h4>
                 <h1 class="u-fwt">Maison</h1>
-                <a href="https://www.youtube.com/watch?v=Fo5EFx4Obv8" data-lity>
+                <a href="<?php echo get_field('herovideo'); ?>" data-lity>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.png" class="hover--transparent" />
                 </a>
             </div>
@@ -24,7 +24,7 @@
                     <div class="col-sm-offset-4 col-xs-offset-0 col-sm-14">
                         <h2 class="u-mt-3p u-xs-mt2">
                             <small  class="u-db u-mb2">Philosophy</small>
-                            Timeless Chic
+                            <?php echo get_field('philosophytitle'); ?>
                         </h2>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-sm-offset-2 col-sm-7">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/the-maison-1.jpg" class="responsive u-mb2" />
+                <img src="<?php echo get_field('philosophyimage1'); ?>" class="responsive u-mb2" />
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
 
 <section class="section">
     <div class="container-fluid">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/the-maison-2.jpg" class="responsive" />
+        <img src="<?php echo get_field('philosophyimage2'); ?>" class="responsive" />
     </div>
 </section>
 
@@ -53,12 +53,9 @@
             <div class="col-sm-12 col-sm-offset-4">
                 <h2>
                     <small  class="u-db u-mb2">Craftsmanship</small>
-                    Meticilous Attention
+                    <?php echo get_field('craftsmanshiptitle'); ?>
                 </h2>
-                <p>Following the traditions of haute couture fashion houses, Maison Tina pays meticulous attention
-        to every detail. The fabrics in use are produced by the finest production houses in Italy and France. All embroideries
-        and appliques are hand-sewn and carefully handcrafted in Tina’s atelier, turning each of the 
-        models into an exquisite piece of art.</p>
+                <p><?php echo get_field('craftsmanshipdescription'); ?></p>
             </div>
         </div>
     </div>
@@ -68,10 +65,32 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/the-maison-3.jpg" class="responsive u-mb5" />
+                <?php
+                $craftsmanshipFirstImage = get_field('craftsmanshipimage1');
+                if ($craftsmanshipFirstImage) {
+                    ?><img src="<?php echo $craftsmanshipFirstImage; ?>" class="responsive u-mb5" /><?php
+                }
+                else {
+                    $craftsmanshipFirstVideo = get_field('craftsmanshipvideo1');
+                    if ($craftsmanshipFirstVideo) {
+                        ?><div class="js-youtubevideo u-mb5" data-id="<?php echo $craftsmanshipFirstVideo['vid']; ?>" data-orientation="portrait"></div><?php
+                    }
+                }
+                ?>
             </div>
             <div class="col-sm-offset-3 col-md-push-1 col-sm-9">
-                <div class="js-youtubevideo u-mt-3p u-xs-mt0" data-id="Fo5EFx4Obv8" data-orientation="landscape"></div>
+                <?php
+                $craftsmanshipSecondImage = get_field('craftsmanshipimage2');
+                if ($craftsmanshipSecondImage) {
+                    ?><img src="<?php echo $craftsmanshipSecondImage; ?>" class="responsive u-mt-3p u-xs-mt0" /><?php
+                }
+                else {
+                    $craftsmanshipSecondVideo = get_field('craftsmanshipvideo2');
+                    if ($craftsmanshipSecondVideo) {
+                        ?><div class="js-youtubevideo u-mt-3p u-xs-mt0" data-id="<?php echo $craftsmanshipSecondVideo['vid']; ?>" data-orientation="landscape"></div><?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -85,21 +104,18 @@
                     <div class="col-sm-offset-4 col-xs-offset-0 col-sm-14">
                         <h2 class="u-cwhite u-mt-3p u-xs-mt2">
                             <small class="u-db u-mb2 u-clightgray">Creative</small>
-                            The Designer
+                            <?php echo get_field('creativetitle'); ?>
                         </h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-offset-6 col-xs-offset-2 col-sm-12">
-                        <p>Hristina Angelova is the designer and founder of Maison Tina.
-                        Born in a family with strong traditions in fashion design, it was only natural that she started
-                        her own brand that reflects her vision of woman aesthetics. Her models inwrought the strong
-                        influence of iconic French haute-couture designers and the lightness of the Mediterranean culture.</p>
+                        <p><?php echo get_field('creativedescription'); ?></p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-offset-2 col-sm-7">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/the-maison-designer.jpg" class="responsive u-mt-10 u-mb10 u-xs-mt0 u-xs-mb2" />
+                <img src="<?php echo get_field('creativeimage'); ?>" class="responsive u-mt-10 u-mb10 u-xs-mt0 u-xs-mb2" />
             </div>
         </div>
     </div>
