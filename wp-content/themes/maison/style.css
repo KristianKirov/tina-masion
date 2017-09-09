@@ -1973,3 +1973,7 @@ blockquote {
 .payment_method_maison_fibank_gateway img {
     max-width: 100%;
 }
+
+.woocommerce-variation-availability .in-stock {
+    display: none;
+}
