@@ -1,0 +1,29 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "gulp",
+            "task": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "taskName": "stop-iis",
+            "command": "start-process -FilePath PowerShell -Verb Runas -Wait -ArgumentList \"\\\"iisreset /STOP\\\"\"",
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "taskName": "serve",
+            "isBackground": true,
+            "command": "C:\\Apache24\\bin\\httpd.exe",
+            "dependsOn": "stop-iis",
+            "problemMatcher": []
+        }
+    ]
+}
