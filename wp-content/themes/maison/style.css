@@ -571,7 +571,7 @@ Text Domain: maison-tina
 }
 
 .u-mb4 {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
 }
 
 .u-mb5 {
