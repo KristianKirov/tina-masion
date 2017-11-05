@@ -13,7 +13,10 @@
                 </div>
                 
                 <div class="nav-section u-tar">
-                    <?php wp_nav_menu(array('theme_location' => 'top-nav-right', 'container' => false)); ?>
+                    <?php
+                        wp_nav_menu(array('theme_location' => 'top-nav-right', 'container' => false));
+                        qtranxf_generateLanguageSelectCode(array('type' => 'image'));
+                    ?>
 
                     <button type="button" class="nav-toggle js-nav-mobile-menu-toggle">
                         <span class="toggle-bar"></span>

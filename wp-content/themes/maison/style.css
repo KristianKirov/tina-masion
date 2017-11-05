@@ -2,7 +2,7 @@
 Theme Name: Maison Tina
 Author: Kristian Kirov
 Description: Wordpress theme exclusivelly developed for the http://maisontina.com/ website
-Version: 0.0.6
+Version: 0.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: maison-tina
@@ -184,7 +184,6 @@ Text Domain: maison-tina
     line-height: 20px;
     text-transform: uppercase;
     z-index: 100;
-    overflow: hidden;
 
     /*-webkit-transition: background-color 0.3s ease;
     -moz-transition: background-color 0.3s ease;
@@ -266,9 +265,48 @@ Text Domain: maison-tina
     /*text-decoration: none;*/
 }
 
+.nav-top .sub-menu {
+    position: absolute;
+    display: none;
+}
+
+.nav-top .sub-menu > li {
+    display: block;
+}
+
+.nav-top .sub-menu > li a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-image: none !important;
+}
+
+.nav-top .sub-menu {
+    transform: translateY(-46px);
+}
+
+.nav-top--fixed .sub-menu {
+    background-color: #fff;
+    border: 1px solid #cfd0d5;
+    border-top: none;
+    transform: translateX(1px);
+}
+
+.nav-top .sub-menu--open {
+    display: block;
+}
+
 .nav-top--fixed ul a {
     padding-top: 16px;
     padding-bottom: 16px;
+}
+
+.qtranxs-lang-menu {
+    direction: rtl;
+}
+
+.qtranxs-lang-menu img {
+    vertical-align: text-top;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, .3);
 }
 
 .nav-top li.current-menu-item > a,
@@ -304,8 +342,35 @@ Text Domain: maison-tina
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%206%207%27%20fill%3D%22%23fff%22%3E%3Cpath%20d%3D%27M00%200%20L01%200%20L6%207%20L05%207%20Z%27%20%2F%3E%3C%2Fsvg%3E);
 }
 
-.nav-toggle, .nav-mobile-menu {
+.nav-toggle, .nav-mobile-menu, .language-chooser, .qtranxs_widget_end {
     display: none;
+}
+
+.language-chooser {
+    margin-right: 5px;
+}
+
+ul.language-chooser a {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-image: none !important;
+}
+
+.language-chooser img {
+    vertical-align: bottom;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, .3);
+}
+
+@media (max-width: 1180px) {
+    .nav-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .nav-top ul a {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 @media (max-width: 876px) {
@@ -350,6 +415,10 @@ Text Domain: maison-tina
         margin-bottom: 28px;
         width: 28px;
         line-height: 0px;
+    }
+
+    .language-chooser {
+        display: inline-block !important;
     }
 
     .nav-toggle .toggle-bar {

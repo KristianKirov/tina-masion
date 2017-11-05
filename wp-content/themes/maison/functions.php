@@ -60,35 +60,93 @@ function register_maison_menus() {
 }
 add_action('init', 'register_maison_menus');
 
-function maison_wp_nav_menu_items( $items, $args, $ajax = false ) {
-	// Top Navigation Area Only
-	if ( ( isset( $ajax ) && $ajax ) || ( property_exists( $args, 'theme_location' ) && $args->theme_location === 'top-nav-right' ) ) {
-		// WooCommerce
-		if ( class_exists( 'woocommerce' ) ) {
-			$css_class = 'menu-item menu-item-type-cart menu-item-type-woocommerce-cart';
-			// Is this the cart page?
-			if ( is_cart() )
-				$css_class .= ' current-menu-item';
-			$items .= '<li class="' . esc_attr( $css_class ) . '">';
-				$items .= '<a class="cart-contents" href="' . esc_url( WC()->cart->get_cart_url() ) . '">';
-					$items .= 'Cart (' . wp_kses_data(WC()->cart->get_cart_contents_count()) . ')';
-				$items .= '</a>';
-			$items .= '</li>';
-		}
-	}
-	return $items;
+function maison_render_nav_item($nav_item) {
+	$args = (object)array('before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'depth' => 0);
+	$item_markup = walk_nav_menu_tree(array($nav_item), $args->depth, $args);
+
+	return $item_markup;
 }
-add_filter('wp_nav_menu_items', 'maison_wp_nav_menu_items', 10, 2);
 
 /**
  * This function updates the Top Navigation WooCommerce cart link contents when an item is added via AJAX.
  */
 function maison_woocommerce_add_to_cart_fragments($fragments) {
-	// Add our fragment
-	$fragments['li.menu-item-type-woocommerce-cart'] = maison_wp_nav_menu_items('', new stdClass(), true);
+	$right_top_navi_items = wp_get_nav_menu_items('Top Navigation Right');
+	$woo_counter_menu_items = array_filter($right_top_navi_items, function($i) { return $i->url == '#maison-woo-counter'; });
+	if (isset($woo_counter_menu_items)) {
+		$woo_counter_menu_item = current($woo_counter_menu_items);
+		maison_update_woo_counter_nav_item($woo_counter_menu_item);
+		
+		$fragments['li.menu-item-type-woocommerce-cart'] = maison_render_nav_item($woo_counter_menu_item);
+	}
+	
 	return $fragments;
 }
 add_filter('woocommerce_add_to_cart_fragments', 'maison_woocommerce_add_to_cart_fragments');
+
+function maison_nav_menu_metabox($object) {
+	global $nav_menu_selected_id;
+
+	$maison_menu_items = array();
+	$maison_menu_items[] = (object)array(
+		'db_id' => 0,
+		'object' => 'maison-menu-item',
+		'object_id' => 'maison-woo-counter',
+		'menu_item_parent' => 0,
+		'type' => 'custom',
+		'title' => 'Cart (%s)',
+		'label' => 'Cart Counter',
+		'classes' => array('menu-item', 'menu-item-type-cart', 'menu-item-type-woocommerce-cart'),
+		'url' => '#maison-woo-counter',
+		'target' => '',
+		'attr_title' => '',
+		'xfn' => ''
+	);
+
+	$walker = new Walker_Nav_Menu_Checklist();
+
+	?>
+	<div id="maison-menu-items" class="maisonmenuitemsdiv">
+		<div id="tabs-panel-maison-menu-items-all" class="tabs-panel tabs-panel-view-all tabs-panel-active">
+			<ul id="maison-menu-itemschecklist" class="list:maison-menu-items categorychecklist form-no-clear">
+				<?php echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $maison_menu_items ), 0, (object)array( 'walker' => $walker ) ) ?>
+			</ul>
+		</div>
+		<p class="button-controls">
+			<span class="add-to-menu">
+				<input type="submit"<?php disabled( $nav_menu_selected_id, 0 ) ?> class="button-secondary submit-add-to-menu right" value="Add to Menu" name="add-maison-menu-items-menu-item" id="submit-maison-menu-items" />
+				<span class="spinner"></span>
+			</span>
+		</p>
+	</div>
+	<?php
+}
+
+function maison_add_nav_menu_metabox(){
+	add_meta_box('maison-nav-menu-meta-box', 'Maison Menus', 'maison_nav_menu_metabox', 'nav-menus', 'side', 'default');
+}
+add_action('admin_head-nav-menus.php', 'maison_add_nav_menu_metabox');
+
+function maison_update_woo_counter_nav_item($woo_counter_nav_item) {
+	$woo_counter_nav_item->url = WC()->cart->get_cart_url();
+	$woo_counter_nav_item->title = sprintf($woo_counter_nav_item->title, wp_kses_data(WC()->cart->get_cart_contents_count()));
+}
+
+function maison_nav_menu_items($items) {
+	foreach ( $items as $key => $item ) {
+		if (!empty($item->url) && $item->url == '#maison-woo-counter') {
+			maison_update_woo_counter_nav_item($item);
+			if (is_cart()) {
+				$item->current = true;
+				$item->classes[] = 'current-menu-item';
+			}
+		}
+	}
+
+	return $items;
+}
+
+add_filter('wp_nav_menu_objects', 'maison_nav_menu_items', 10);
 
 add_filter('use_default_gallery_style', '__return_false');
 

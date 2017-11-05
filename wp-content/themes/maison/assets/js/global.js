@@ -539,4 +539,22 @@
             $('.shop_table input[name="update_cart"]').trigger('click');
         });
 
+    var openDropdownClass = 'sub-menu--open';
+    function closeDropdowns() {
+        $('.' + openDropdownClass).removeClass(openDropdownClass);
+        $(document.body).off('click', closeDropdowns);
+    }
+
+    $(document.body).on('click', '.menu-item-has-children > a',
+        function(e) {
+            e.preventDefault();
+            var $triggerElement = $(this);
+            
+            var $menuDropdown = $triggerElement.siblings('.sub-menu');
+            $menuDropdown.toggleClass(openDropdownClass);
+            if ($menuDropdown.hasClass(openDropdownClass)) {
+                $(document.body).on('click', closeDropdowns);
+            }
+        });
+
 })(jQuery);
