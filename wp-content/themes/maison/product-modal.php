@@ -20,7 +20,7 @@ the_post(); ?>
                 require 'inc/product-simple-attributes.php';
 
                 woocommerce_template_single_add_to_cart();
-                echo '<a href="' . get_permalink() . '" class="u-ttu">View Full Item</a>';
+                echo '<a href="' . get_permalink() . '" class="u-ttu">' . __('View Full Item', 'maison-tina') . '</a>';
                 ?>
             </div>
         </div>

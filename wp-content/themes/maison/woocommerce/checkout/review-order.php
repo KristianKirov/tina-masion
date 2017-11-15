@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td class="product-total u-tar">
 							<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
 							<div>
-								<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <span class="product-quantity u-ttu u-fs12">' . sprintf( 'Qty: %s', $cart_item['quantity'] ) . '</span>', $cart_item, $cart_item_key ); ?>
+								<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <span class="product-quantity u-ttu u-fs12">' . sprintf( __('Qty', 'woocommerce') . ': %s', $cart_item['quantity'] ) . '</span>', $cart_item, $cart_item_key ); ?>
 							</div>
 						</td>
 					</tr>
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<tr>
 			<td colspan="2">
-				<a href="#" class="showcoupon u-db u-mb1 u-cblack">Click here to enter your promo code.</a>
+				<a href="#" class="showcoupon u-db u-mb1 u-cblack"><?php _e('Click here to enter your promo code.', 'maison-tina') ?></a>
 			</td>
 		</tr>
 	</tbody>

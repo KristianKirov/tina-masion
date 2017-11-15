@@ -33,10 +33,10 @@ if ( ! wc_coupons_enabled() ) {
 <form class="checkout_coupon co-section u-pb0" method="post" style="display:none">
 	<div class="row">
 	 	<div class="col-md-15 form-row">
-			<input type="text" name="coupon_code" class="input-text u-mb2" placeholder="Enter Promo Code" id="coupon_code" value="" />
+			<input type="text" name="coupon_code" class="input-text u-mb2" placeholder="<?php _e('Enter Promo Code', 'maison-tina') ?>" id="coupon_code" value="" />
 		</div>
 		<div class="col-md-5 form-row">
-			<input type="submit" class="button u-mb2" name="apply_coupon" value="Apply" />
+			<input type="submit" class="button u-mb2" name="apply_coupon" value="<?php _e('Apply', 'maison-tina') ?>" />
 		</div>
 	</div>
 </form>

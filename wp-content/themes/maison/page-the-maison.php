@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-sm-offset-4 col-xs-offset-0 col-sm-14">
                         <h2 class="u-mt-3p u-xs-mt2">
-                            <small  class="u-db u-mb2">Philosophy</small>
+                            <small class="u-db u-mb2"><?php _e('Philosophy', 'maison-tina') ?></small>
                             <?php echo get_field('philosophytitle'); ?>
                         </h2>
                     </div>
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-sm-12 col-sm-offset-4">
                 <h2>
-                    <small  class="u-db u-mb2">Craftsmanship</small>
+                    <small  class="u-db u-mb2"><?php _e('Craftsmanship', 'maison-tina') ?></small>
                     <?php echo get_field('craftsmanshiptitle'); ?>
                 </h2>
                 <p><?php echo get_field('craftsmanshipdescription'); ?></p>
@@ -103,7 +103,7 @@
                 <div class="row">
                     <div class="col-sm-offset-4 col-xs-offset-0 col-sm-14">
                         <h2 class="u-cwhite u-mt-3p u-xs-mt2">
-                            <small class="u-db u-mb2 u-clightgray">Creative</small>
+                            <small class="u-db u-mb2 u-clightgray"><?php _e('Creative', 'maison-tina') ?></small>
                             <?php echo get_field('creativetitle'); ?>
                         </h2>
                     </div>

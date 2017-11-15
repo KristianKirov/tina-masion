@@ -23,7 +23,7 @@ if (isset($collection_media_params)) :
         endif;
     endif;
 ?>
-<a href="<?php echo $collection_url; ?>" class="hover-link hover-link--<?php echo $media_orientation; ?> container-center"><span class="content-centered">View</span></a>
+<a href="<?php echo $collection_url; ?>" class="hover-link hover-link--<?php echo $media_orientation; ?> container-center"><span class="content-centered"><?php _e('View', 'maison-tina') ?></span></a>
 </div>
 <?php
 endif; ?>

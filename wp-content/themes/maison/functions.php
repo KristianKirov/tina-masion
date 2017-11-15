@@ -25,7 +25,11 @@ function maison_scripts() {
 	}
 
 	$frontend_data = array(
-		'ajaxUrl' => admin_url('admin-ajax.php'));
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'ok_thanks' => __('OK, Thanks', 'maison-tina'),
+		'thank_you_for_subs' => __('Thank you for subscribing', 'maison-tina'),
+		'error_on_subs' => __('Error on subscribing', 'maison-tina')
+	);
 
     wp_register_script( 'maison-global', get_theme_file_uri("/assets/js/global$resources_suffix.js" ), array( 'jquery' ), $maison_theme_version, true );
 	wp_localize_script( 'maison-global', 'maison_frontend_data', $frontend_data );
@@ -95,7 +99,7 @@ function maison_nav_menu_metabox($object) {
 		'menu_item_parent' => 0,
 		'type' => 'custom',
 		'title' => 'Cart (%s)',
-		'label' => 'Cart Counter',
+		'label' => __('Cart Counter', 'maison-tina'),
 		'classes' => array('menu-item', 'menu-item-type-cart', 'menu-item-type-woocommerce-cart'),
 		'url' => '#maison-woo-counter',
 		'target' => '',
@@ -114,7 +118,7 @@ function maison_nav_menu_metabox($object) {
 		</div>
 		<p class="button-controls">
 			<span class="add-to-menu">
-				<input type="submit"<?php disabled( $nav_menu_selected_id, 0 ) ?> class="button-secondary submit-add-to-menu right" value="Add to Menu" name="add-maison-menu-items-menu-item" id="submit-maison-menu-items" />
+				<input type="submit"<?php disabled( $nav_menu_selected_id, 0 ) ?> class="button-secondary submit-add-to-menu right" value="<?php _e('Add to Menu', 'maison-tina') ?>" name="add-maison-menu-items-menu-item" id="submit-maison-menu-items" />
 				<span class="spinner"></span>
 			</span>
 		</p>
@@ -236,8 +240,8 @@ function mainson_woocommerce_breadcrumb($args = array()) {
 
 		woocommerce_breadcrumb($args);
 
-		$prev_post_link = get_previous_post_link('%link', '&lt; Previous', true, '', 'product_cat');
-		$next_post_link = get_next_post_link('%link', 'Next &gt;', true, '', 'product_cat');
+		$prev_post_link = get_previous_post_link('%link', '&lt; ' . __('Previous', 'maison-tina'), true, '', 'product_cat');
+		$next_post_link = get_next_post_link('%link', __('Next', 'maison-tina') . ' &gt;', true, '', 'product_cat');
 
 		if ($prev_post_link || $next_post_link) {
 			echo '<div class="u-fr u-cblack u-mb1">';
@@ -261,7 +265,7 @@ function maison_woocommerce_breadcrumb_home_url() {
 add_filter( 'woocommerce_breadcrumb_home_url', 'maison_woocommerce_breadcrumb_home_url' );
 
 function maison_woocommerce_breadcrumb_defaults($args) {
-	$args['home'] = 'Shop';
+	$args['home'] = __('Shop', 'maison-tina');
 	$args['delimiter'] = '<span class="woocommerce-breadcrumb-separator">&nbsp;&gt;&nbsp;</span>';
     return $args;
 }
@@ -288,7 +292,7 @@ function maison_template_loop_product_div_open() {
 
 function maison_template_loop_product_quick_view() {
 	global $post;
-	echo '<a href="#product-' . $post->post_name . '" class="article-link-quickview u-ttu u-cblack" data-quick-view>Quickview</a>';
+	echo '<a href="#product-' . $post->post_name . '" class="article-link-quickview u-tac u-ttu u-cblack" data-quick-view>' . __('Quickview', 'maison-tina') . '</a>';
 }
 
 function maison_template_loop_product_link_open() {
@@ -352,7 +356,7 @@ add_action( 'wp_ajax_nopriv_maison_load_product_quick_view', 'maison_load_produc
 
 function maison_woocommerce_short_description_add_label($content) {
 	if ($content) {
-		$content = 'Description: ' . $content;
+		$content = __('Description', 'maison-tina') . ': ' . $content;
 	}
 
 	return $content;
@@ -426,7 +430,7 @@ function maison_update_checkout_fields($fields) {
 	// var_dump($fields['order']);
 	$fields['order']['is_gift'] = array(
 		'type' => 'checkbox',
-		'label' => 'This is a gift'
+		'label' => __('This is a gift', 'maison-tina')
 	);
 
 	return $fields;
@@ -434,7 +438,7 @@ function maison_update_checkout_fields($fields) {
 add_filter( 'woocommerce_checkout_fields' , 'maison_update_checkout_fields' );
 
 function maison_checkout_field_display_admin_order_meta($order){
-    echo '<p><strong>This is a gift?:</strong> ' . (get_post_meta( $order->get_id(), 'is_gift', true ) ? 'Yes' : 'No') . '</p>';
+    echo '<p><strong>' . __('This is a gift', 'maison-tina') . '?:</strong> ' . (get_post_meta( $order->get_id(), 'is_gift', true ) ? __('Yes', 'maison-tina') : __('No', 'maison-tina')) . '</p>';
 }
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'maison_checkout_field_display_admin_order_meta', 10, 1 );
 
@@ -499,7 +503,7 @@ add_filter('woocommerce_sale_flash', 'maison_woocommerce_sale_flash', 10, 3);
 function maison_woocommerce_before_shop_loop_item_title() {
 	global $product;
     if ( !$product->is_in_stock() ) {
-        echo '<span class="soldout">Sold out!</span>';
+        echo '<span class="soldout">' . __('Sold Out', 'maison-tina') . '!</span>';
     }
 }
 add_action('woocommerce_before_shop_loop_item_title', 'maison_woocommerce_before_shop_loop_item_title');
@@ -513,7 +517,7 @@ add_filter('woocommerce_format_sale_price', 'maison_woocommerce_format_sale_pric
 
 function maison_woocommerce_product_single_add_to_cart_text($text, $product) {
 	if ( !$product->is_in_stock() ) {
-        return 'Sold Out!';
+        return __('Sold Out', 'maison-tina') . '!';
 	}
 	
 	return $text;

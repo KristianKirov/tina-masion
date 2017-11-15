@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-sm-offset-2 col-lg-6 col-md-9">
                     <p class="u-cwhite u-o9"><?php echo get_the_excerpt() ?></p>
-                    <a href="<?php the_permalink(); ?>" class="link">Discover</a>
+                    <a href="<?php the_permalink(); ?>" class="link"><?php _e('Discover', 'maison-tina') ?></a>
                 </div>
             </div>
         </div>

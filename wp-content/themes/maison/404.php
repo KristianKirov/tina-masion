@@ -13,9 +13,9 @@
     <div class="container-fluid">
         <h2>Pardon!</h2>
 
-        <h2 class="u-ttn">The page you’re looking for <br /> doesn’t exist.</h2>
+        <h2 class="u-ttn"><?php _e('The page you’re looking for', 'maison-tina') ?><br /><?php _e('doesn’t exist.', 'maison-tina') ?></h2>
 
-        <a href="<?php echo home_url('/') ?>" class="u-ttu home-link fwsb u-dib">Back To Home</a>
+        <a href="<?php echo home_url('/') ?>" class="u-ttu home-link fwsb u-dib"><?php _e('Back To Home', 'maison-tina') ?></a>
     </div>
 </section>
 

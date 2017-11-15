@@ -17,11 +17,11 @@ wc_print_notices();
 ?>
 
 <p class="cart-empty">
-	You have nothing in your shopping cart.
+	<?php _e('You have nothing in your shopping cart.', 'maison-tina') ?>
 	<?php if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
 		<span class="return-to-shop">
 			<a href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-				Continue Shopping.
+				<?php _e('Continue Shopping.', 'maison-tina'); ?>
 			</a>
 		</span>
 	<?php endif; ?>

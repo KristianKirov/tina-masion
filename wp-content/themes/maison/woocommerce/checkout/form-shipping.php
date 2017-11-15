@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="woocommerce-shipping-fields co-section">
 	<?php if ( true === WC()->cart->needs_shipping_address() ) : ?>
 
-		<h4 class="co-section-title">Shipping</h4>
+		<h4 class="co-section-title"><?php _e('Shipping', 'maison-tina') ?></h4>
 
 		<p class="form-row form-row-first" id="ship-to-different-address">
 			<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">

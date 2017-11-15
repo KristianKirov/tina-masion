@@ -516,13 +516,13 @@
         $.post('', subscriptionData, function (responseData) {
             var subscriptionAlertBox = $(responseData).find('#' + submittedFormId + ' .mc4wp-response .mc4wp-alert');
             var isSubscriptionSuccessful = subscriptionAlertBox.is('.mc4wp-success');
-            var modalTitle = isSubscriptionSuccessful ? 'Thank you for subscribing!' : 'Error on subscribing!';
+            var modalTitle = isSubscriptionSuccessful ? maison_frontend_data.thank_you_for_subs : maison_frontend_data.error_on_subs;
             var modalMessage = subscriptionAlertBox.text();
             var subscriptionModalHtml =
                 '<div class="subscription-message u-tac">' +
                     '<h1 class="u-fs30 u-mb3">' + modalTitle + '</h1>' +
                     '<p class="u-mb5">' + modalMessage + '</p>' +
-                    '<button type="button" class="btn btn-main" data-lity-close>OK, Thanks</button>' +
+                    '<button type="button" class="btn btn-main" data-lity-close>' + maison_frontend_data.ok_thanks + '</button>' +
                 '</div>'
             lity(subscriptionModalHtml);
         })

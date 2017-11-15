@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="woocommerce-info woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></p>
 
 			<div class="co-section">
-				<h4 class="co-section-title">Order</h4>
+				<h4 class="co-section-title"><?php _e('Order', 'maison-tina') ?></h4>
 
 				<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details list-clean">
 
@@ -76,6 +76,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php endif; ?>
 
 	<div class="u-tac">
-		<a href="<?php echo home_url('/') ?>" class="u-ttu fwsb u-dib u-mb2">Back To Home</a>
+		<a href="<?php echo home_url('/') ?>" class="u-ttu fwsb u-dib u-mb2"><?php _e('Back To Home', 'maison-tina') ?></a>
 	</div>
 </div>

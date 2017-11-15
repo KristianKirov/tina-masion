@@ -22,7 +22,7 @@ the_post();
                 <div class="col-sm-10">
                     <?php if ($prev_post): ?>
                     <a href="<?php the_permalink($prev_post); ?>" class="post-sibling-link u-dib">
-                        <small>Previous</small><br />
+                        <small><?php _e('Previous', 'maison-tina') ?></small><br />
                         <?php echo get_the_title($prev_post); ?>
                     </a>
                     <?php endif; ?>
@@ -30,7 +30,7 @@ the_post();
                 <div class="col-sm-10 u-tar">
                     <?php if ($next_post): ?>
                     <a href="<?php the_permalink($next_post); ?>" class="post-sibling-link u-dib">
-                        <small>Next</small><br />
+                        <small><?php _e('Next', 'maison-tina') ?></small><br />
                         <?php echo get_the_title($next_post); ?>
                     </a>
                     <?php endif; ?>

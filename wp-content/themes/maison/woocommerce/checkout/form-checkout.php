@@ -48,7 +48,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 		<div class="col-sm-10">
 			<div class="co-section js-sticky-sidebar">
-				<h4 class="co-section-title">Order Summary</h4>
+				<h4 class="co-section-title"><?php _e('Order Summary', 'maison-tina') ?></h4>
 
 				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 

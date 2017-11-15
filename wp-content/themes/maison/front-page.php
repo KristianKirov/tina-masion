@@ -17,7 +17,7 @@ if ( have_posts() ) :
                     <div class="u-tac">
                         <h3><?php echo get_field('year', $hero_collection); ?></h3>
                         <h1 class="u-ttn"><?php echo get_the_title($hero_collection); ?></h1>
-                        <a class="link link--big" href="<?php echo get_permalink($hero_collection); ?>">Discover</a>
+                        <a class="link link--big" href="<?php echo get_permalink($hero_collection); ?>"><?php _e('Discover', 'maison-tina') ?></a>
                     </div>
                 </div>
             </div>
@@ -29,13 +29,13 @@ if ( have_posts() ) :
     <div class="container-fluid">
         <h3><?php echo get_field('year', $hero_collection); ?></h3>
         <h1 class="u-ttn"><?php echo get_the_title($hero_collection); ?></h1>
-        <a class="link u-cblack" href="<?php echo get_permalink($hero_collection); ?>">Discover</a>
+        <a class="link u-cblack" href="<?php echo get_permalink($hero_collection); ?>"><?php _e('Discover', 'maison-tina') ?></a>
     </div>
 </section>
 
 <section class="section u-pt7 u-pb7 section--centered-heading">
     <div class="container-fluid">
-        <h2>Collections</h2>
+        <h2><?php _e('Collections', 'maison-tina') ?></h2>
         <div class="row">
             <div class="col-xs-20 col-sm-10 col-md-6">
                 <div class="collection1-margin1">
@@ -50,8 +50,8 @@ if ( have_posts() ) :
                     <h3><small class="u-db u-mb2"><?php echo get_field('year', $first_collection); ?></small> <?php echo get_the_title($first_collection); ?></h3>
                     <div class="row">
                         <div class="col-xs-offset-3 col-xs-17">
-                            <p><?php echo get_the_excerpt($first_collection); ?></p>
-                            <a class="link u-cblack" href="<?php echo $first_collection_url; ?>">View</a>
+                            <?php echo apply_filters( 'the_excerpt', get_the_excerpt($first_collection)); ?>
+                            <a class="link u-cblack" href="<?php echo $first_collection_url; ?>"><?php _e('View', 'maison-tina') ?></a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,6 @@ if ( have_posts() ) :
                     ?>
                 </div>
             </div>
-
             <div class="col-xs-20 col-sm-10 col-md-8 col-md-pull-1 u-fr desktop-only">
                 <div class="collection1-margin4">
                     <?php
@@ -91,8 +90,8 @@ if ($second_collection_second_image_url): ?>
                     <h3><small class="u-db u-mb2"><?php echo get_field('year', $second_collection); ?></small> <?php echo get_the_title($second_collection); ?></h3>
                     <div class="row">
                         <div class="col-xs-offset-3 col-xs-17">
-                            <p><?php echo get_the_excerpt($second_collection); ?></p>
-                            <a class="link u-cblack" href="<?php echo $second_collection_url; ?>">View</a>
+                            <?php echo apply_filters( 'the_excerpt', get_the_excerpt($second_collection)); ?>
+                            <a class="link u-cblack" href="<?php echo $second_collection_url; ?>"><?php _e('View', 'maison-tina') ?></a>
                         </div>
                     </div>
                 </div>
@@ -135,11 +134,11 @@ if ($second_collection_second_image_url): ?>
             <div class="col-sm-6">
                 <div class="overflow-bottom-item u-tac">
                     <h3>
-                        <small class="u-db u-mb2">Explore</small>
+                        <small class="u-db u-mb2"><?php _e('Explore', 'maison-tina') ?></small>
                         The Maison
                     </h3>
                     <p><?php echo get_field('masiondescription'); ?></p>
-                    <a class="link" href="<?php echo get_field('maisonpage'); ?>">About</a>
+                    <a class="link" href="<?php echo get_field('maisonpage'); ?>"><?php _e('About', 'maison-tina') ?></a>
                 </div>
             </div>
         </div>
@@ -148,7 +147,7 @@ if ($second_collection_second_image_url): ?>
 
 <section class="section u-pt7 u-pb1 section--centered-heading">
     <div class="container-fluid">
-        <h2>Wear Tina</h2>
+        <h2><?php _e('Wear Tina', 'maison-tina') ?></h2>
 
         <div class="row">
             <div class="col-md-offset-1 col-md-18">

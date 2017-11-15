@@ -30,21 +30,21 @@
         </div>
         <?php
         $arrow_left = '<span class="icon-left-open-big"></span>';
-        $prev_posts_link = get_previous_posts_link($arrow_left . 'Newer');
+        $prev_posts_link = get_previous_posts_link($arrow_left . __('Newer', 'maison-tina'));
 
         $arrow_right = '<span class="icon-right-open-big"></span>';
-        $next_posts_link = get_next_posts_link('Older ' . $arrow_right);
+        $next_posts_link = get_next_posts_link(__('Older', 'maison-tina') . ' ' . $arrow_right);
         if ($next_posts_link || $prev_posts_link) :
         ?>
         <div class="row u-mb9 u-ttu posts-pager">
             <div class="col-xs-10">
                 <div class="u-tar <?php if (!$prev_posts_link) echo ' disabled'; ?>">
-                    <?php echo ($prev_posts_link ? $prev_posts_link : $arrow_left . ' <span>Newer</span>'); ?>
+                    <?php echo ($prev_posts_link ? $prev_posts_link : $arrow_left . ' <span>' . __('Newer', 'maison-tina') . '</span>'); ?>
                 </div>
             </div>
             <div class="col-xs-10">
                 <div <?php if (!$next_posts_link) echo 'class="disabled"'; ?>>
-                    <?php echo ($next_posts_link ? $next_posts_link : '<span>Older</span> ' . $arrow_right); ?>
+                    <?php echo ($next_posts_link ? $next_posts_link : '<span>' . __('Older', 'maison-tina') . '</span> ' . $arrow_right); ?>
                 </div>
             </div>
         </div>

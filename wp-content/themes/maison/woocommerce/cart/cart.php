@@ -32,9 +32,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 			<thead>
 				<tr>
 					<!--<th class="product-thumbnail">&nbsp;</th>-->
-					<th class="product-name u-tal u-fwl u-fs12" colspan="2">Item</th>
-					<th class="product-quantity u-tac u-fwl u-fs12">Quantity</th>
-					<th class="product-price u-tar u-fwl u-fs12">Price</th>
+					<th class="product-name u-tal u-fwl u-fs12" colspan="2"><?php _e('Item', 'maison-tina') ?></th>
+					<th class="product-quantity u-tac u-fwl u-fs12"><?php _e('Quantity', 'maison-tina') ?></th>
+					<th class="product-price u-tar u-fwl u-fs12"><?php _e('Price', 'maison-tina') ?></th>
 					<!--<th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>-->
 					<th class="product-remove">&nbsp;</th>
 				</tr>
@@ -153,7 +153,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 			<tfoot>
 				<tr>
 					<td colspan="4">&nbsp;</td>
-					<td class="u-tar"><div class="u-mt1 u-fs16">Subtotal <?php wc_cart_totals_subtotal_html(); ?></div></td>
+					<td class="u-tar"><div class="u-mt1 u-fs16"><?php _e('Subtotal', 'woocommerce') ?> <?php wc_cart_totals_subtotal_html(); ?></div></td>
 				</tr>
 			</tfoot>
 		</table>

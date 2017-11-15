@@ -83,14 +83,14 @@ $show_making = $video_thumbnail && $video;
 
     <nav class="nav-sub u-tac">
         <ul>
-            <li><a href="#about" data-smooth-scroll>About</a></li>
+            <li><a href="#about" data-smooth-scroll><?php _e('About', 'maison-tina') ?></a></li>
             <?php if ($campaign_images_count) : ?>
-            <li><a href="#campaign" data-smooth-scroll>Campaign</a></li>
+            <li><a href="#campaign" data-smooth-scroll><?php _e('Campaign', 'maison-tina') ?></a></li>
             <?php endif; ?>
             <?php if ($show_making) : ?>
-            <li><a href="#making" data-smooth-scroll>Making</a></li>
+            <li><a href="#making" data-smooth-scroll><?php _e('Making', 'maison-tina') ?></a></li>
             <?php endif; ?>
-            <li><a href="#lookbook" data-smooth-scroll>Lookbook</a></li>
+            <li><a href="#lookbook" data-smooth-scroll><?php _e('Lookbook', 'maison-tina') ?></a></li>
         </ul>
     </nav>
 
@@ -108,7 +108,7 @@ $show_making = $video_thumbnail && $video;
                     <div class="u-pt7 u-pb5 u-mt10 u-xs-mt0 u-bgcwhite">
                         <div class="row">
                             <div class="col-xs-18 col-xs-offset-2">
-                                <h2><small class="u-db u-mb2">The</small> Collection</h2>
+                                <h2><?php _e('<small class="u-db u-mb2">The</small> Collection', 'maison-tina') ?></h2>
                             </div>
                         </div>
                         <div class="row">
@@ -126,7 +126,7 @@ $show_making = $video_thumbnail && $video;
 <?php if ($campaign_images_count) : ?>
 <section id="campaign" class="section u-pt7 u-pb7 section--centered-heading">
     <div class="container-fluid">
-        <h2>Campaign</h2>
+        <h2><?php _e('Campaign', 'maison-tina') ?></h2>
 
         <?php foreach($campaign_rows as $campaign_row) : ?>
             <div class="row">
@@ -151,7 +151,7 @@ $show_making = $video_thumbnail && $video;
 
 <section id="lookbook" class="section u-pt7 u-pb7 section--centered-heading">
     <div class="container-fluid">
-        <h2>Lookbook</h2>
+        <h2><?php _e('Lookbook', 'maison-tina') ?></h2>
 
         <div class="row">
             <div class="col-md-offset-1 col-md-18">
@@ -189,7 +189,7 @@ $show_making = $video_thumbnail && $video;
         </div>
 
         <div class="u-tac">
-            <a href="<?php echo get_term_link($product_category_id, 'product_cat'); ?>" class="link u-cblack">Shop the Collection</a>
+            <a href="<?php echo get_term_link($product_category_id, 'product_cat'); ?>" class="link u-cblack"><?php _e('Shop the Collection', 'maison-tina') ?></a>
         </div>
     </div>
 </section>

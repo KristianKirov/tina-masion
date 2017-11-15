@@ -33,7 +33,7 @@
     <h5 class="u-fs16"><?php echo $product_filter->name; ?></h5>
     <ul class="list-clean u-mb4">
         <li class="u-mb2">
-            <a <?php if ($current_product_category_id == null) echo "class=\"$selected_category_css_class\""; ?> href="<?php echo $shop_page_url; ?>">All</a>
+            <a <?php if ($current_product_category_id == null) echo "class=\"$selected_category_css_class\""; ?> href="<?php echo $shop_page_url; ?>"><?php _e('All', 'maison-tina') ?></a>
         </li>
         <?php foreach ($product_filter->children as $product_category) : ?>
         <li class="u-mb2">
