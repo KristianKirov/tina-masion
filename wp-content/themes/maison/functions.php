@@ -1,5 +1,4 @@
 <?php
-
 add_theme_support('title-tag');
 add_theme_support('post-thumbnails');
 
@@ -557,3 +556,49 @@ function maison_thankyou_bacs_end() {
 	</script>
 	<?php
 }
+
+function maison_admin_scripts() {
+	$screen = get_current_screen();
+	$screen_id = $screen ? $screen->id : '';
+	if ( in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
+		$maison_theme = wp_get_theme();
+		$maison_theme_version = $maison_theme->get('Version');
+		$resources_suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script( 'maison-admin', get_theme_file_uri("/assets/js/admin$resources_suffix.js" ), array( 'wc-admin-variation-meta-boxes' ), $maison_theme_version, true );
+	}
+}
+
+add_action('admin_enqueue_scripts', 'maison_admin_scripts');
+
+function masion_woocommerce_data_stores($stores) {
+	$stores['customer-session'] = 'MAISON_Customer_Data_Store_Session';
+
+	return $stores;
+}
+
+add_filter('woocommerce_data_stores', 'masion_woocommerce_data_stores');
+
+class MAISON_Customer_Data_Store_Session extends WC_Customer_Data_Store_Session {
+	protected function set_defaults( &$customer ) {
+		parent::set_defaults($customer);
+
+		$initial_country = WC()->session->get('customer_initial_country');
+		if (empty($initial_country)) {
+			$initial_shipping_country = $customer->get_shipping_country();
+			WC()->session->set('customer_initial_country', $initial_shipping_country);
+		}
+	}
+}
+
+function maison_wc_price_args($args) {
+	$current_currentcy_zone_id = WC_Product_Price_Based_Country::instance()->customer->zone_id;
+	if ($current_currentcy_zone_id === 'bulgaria') {
+		$args['price_format'] = '%2$s&nbsp;%1$s';
+		$args['decimal_separator'] = ',';
+		$args['thousand_separator'] = ' ';
+	}
+
+	return $args;
+}
+add_filter('wc_price_args', 'maison_wc_price_args');

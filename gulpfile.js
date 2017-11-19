@@ -7,7 +7,8 @@ const cleanCss = require('gulp-clean-css');
 const maisonThemeBaseDir = 'wp-content/themes/maison';
 const jsFilesToMinify = [
     path.join(maisonThemeBaseDir, 'assets/js/global.js'),
-    path.join(maisonThemeBaseDir, 'assets/js/checkout.js')
+    path.join(maisonThemeBaseDir, 'assets/js/checkout.js'),
+    path.join(maisonThemeBaseDir, 'assets/js/admin.js')
 ];
 
 const cssFilesToMinify = [

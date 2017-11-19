@@ -89,7 +89,6 @@ class WC_Customer extends WC_Legacy_Customer {
 	 */
 	public function __construct( $data = 0, $is_session = false ) {
 		parent::__construct( $data );
-
 		if ( $data instanceof WC_Customer ) {
 			$this->set_id( absint( $data->get_id() ) );
 		} elseif ( is_numeric( $data ) ) {

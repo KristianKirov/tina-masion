@@ -188,7 +188,7 @@ function qtranxf_detect_language(&$url_info) {
 			}
 		}
 	}
-
+	
 	//$url_info['doing_front_end'] defines if we are in front- or back-end. Why WP does not have that, or does it?
 	if(!isset($url_info['doing_front_end'])) $url_info['doing_front_end'] = !defined('WP_ADMIN');
 
