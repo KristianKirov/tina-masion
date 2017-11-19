@@ -136,12 +136,24 @@ function maison_update_woo_counter_nav_item($woo_counter_nav_item) {
 }
 
 function maison_nav_menu_items($items) {
+	$shop_page = (int)wc_get_page_id('shop');
 	foreach ( $items as $key => $item ) {
 		if (!empty($item->url) && $item->url == '#maison-woo-counter') {
 			maison_update_woo_counter_nav_item($item);
 			if (is_cart()) {
 				$item->current = true;
 				$item->classes[] = 'current-menu-item';
+			}
+		}
+		else if ($item->object_id == $shop_page && $item->object === 'page') {
+			$first_product_category = get_terms(array('taxonomy' => 'product_cat', 'number' => 1));
+			if (!empty($first_product_category)) {
+				$first_product_category =  current($first_product_category);
+				$first_product_category_child = get_terms(array('taxonomy' => 'product_cat', 'parent' => $first_product_category->term_id, 'number' => 1));
+				if (!empty($first_product_category_child)) {
+					$first_product_category_child = current($first_product_category_child);
+					$item->url = get_term_link($first_product_category_child, 'product_cat');
+				}
 			}
 		}
 	}
@@ -269,6 +281,23 @@ function maison_woocommerce_breadcrumb_defaults($args) {
     return $args;
 }
 add_filter( 'woocommerce_breadcrumb_defaults', 'maison_woocommerce_breadcrumb_defaults' );
+
+function maison_woocommerce_get_breadcrumb($crumbs, $breadcrumb) {
+	if (count($crumbs) > 2 && count($crumbs[1]) == 2) {
+		array_pop($crumbs[1]);
+	}
+
+	return $crumbs;
+}
+add_filter('woocommerce_get_breadcrumb', 'maison_woocommerce_get_breadcrumb', 20, 2);
+function maison_woocommerce_breadcrumb_main_term($main_term, $all_terms) {
+	if (empty($all_terms)) {
+		return $main_term;
+	}
+
+	return end($all_terms);
+}
+add_filter('woocommerce_breadcrumb_main_term', 'maison_woocommerce_breadcrumb_main_term', 20, 2);
 
 remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);

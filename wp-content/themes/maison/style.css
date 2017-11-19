@@ -311,6 +311,7 @@ Domain Path: /languages
 }
 
 .nav-top li.current-menu-item > a,
+.nav-top li.current_page_parent > a,
 .nav-top li > a:hover,
 .nav-top li > a:focus {
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%206%207%27%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%27M00%200%20L01%200%20L6%207%20L05%207%20Z%27%20%2F%3E%3C%2Fsvg%3E);
@@ -320,6 +321,7 @@ Domain Path: /languages
 }
 
 .nav-top--fixed li.current-menu-item > a,
+.nav-top--fixed li.current_page_parent > a,
 .nav-top--fixed li > a:hover,
 .nav-top--fixed li > a:focus {
     background-position-y: 6px;
@@ -338,6 +340,7 @@ Domain Path: /languages
 }
 
 .nav-top--white li.current-menu-item > a,
+.nav-top--white li.current_page_parent > a,
 .nav-top--white li > a:hover,
 .nav-top--white li > a:focus {
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%206%207%27%20fill%3D%22%23fff%22%3E%3Cpath%20d%3D%27M00%200%20L01%200%20L6%207%20L05%207%20Z%27%20%2F%3E%3C%2Fsvg%3E);
