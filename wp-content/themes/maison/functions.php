@@ -43,6 +43,9 @@ function maison_scripts() {
 	if ($is_checkout) {
 		wp_enqueue_script('checkout-script', get_theme_file_uri("/assets/js/checkout$resources_suffix.js"), array('wc-checkout', 'maison-global'), $maison_theme_version);
 	}
+
+	wp_enqueue_script('blazy', get_theme_file_uri( '/assets/js/blazy.min.js' ), array(), '1.8.2', true );
+	wp_add_inline_script('blazy', 'new Blazy({ loadInvisible: true });');
 }
 add_action('wp_enqueue_scripts', 'maison_scripts');
 
@@ -341,11 +344,11 @@ add_action( 'woocommerce_after_shop_loop_item', 'maison_after_shop_loop_item', 2
 function maison_template_loop_product_thumbnail() {
 	$product_thumbnail_id = get_post_thumbnail_id();
 	$product_thumbnail = wp_get_attachment_image_src($product_thumbnail_id, 'shop_catalog');
-	$product_image = wp_get_attachment_image_src($product_thumbnail_id, 'full');
+	$product_image = wp_get_attachment_image_src($product_thumbnail_id, 'shop_single');
 	?>
 		<figure>
-            <img class="responsive" src="<?php echo $product_thumbnail[0]; ?>" />
-            <img class="responsive article-image--hover" src="<?php echo $product_image[0]; ?>" />
+            <img class="b-lazy responsive" data-src="<?php echo $product_thumbnail[0]; ?>" />
+            <img class="b-lazy responsive article-image--hover" data-src="<?php echo $product_image[0]; ?>" />
         </figure>
 	<?php
 }
@@ -621,11 +624,13 @@ class MAISON_Customer_Data_Store_Session extends WC_Customer_Data_Store_Session 
 }
 
 function maison_wc_price_args($args) {
-	$current_currentcy_zone_id = WC_Product_Price_Based_Country::instance()->customer->zone_id;
-	if ($current_currentcy_zone_id === 'bulgaria') {
-		$args['price_format'] = '%2$s&nbsp;%1$s';
-		$args['decimal_separator'] = ',';
-		$args['thousand_separator'] = ' ';
+	if (!is_admin()) {
+		$current_currentcy_zone_id = WC_Product_Price_Based_Country::instance()->customer->zone_id;
+		if ($current_currentcy_zone_id === 'bulgaria') {
+			$args['price_format'] = '%2$s&nbsp;%1$s';
+			$args['decimal_separator'] = ',';
+			$args['thousand_separator'] = ' ';
+		}
 	}
 
 	return $args;

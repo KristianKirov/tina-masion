@@ -1,7 +1,7 @@
 <?php
 $product_thumbnail_id = get_post_thumbnail_id($product_post);
 $product_thumbnail = wp_get_attachment_image_src($product_thumbnail_id, 'shop_catalog');
-$product_image = wp_get_attachment_image_src($product_thumbnail_id, 'full');
+$product_image = wp_get_attachment_image_src($product_thumbnail_id, 'shop_single');
 ?>
 <div class="article u-mb6">
     <a class="article-link" href="<?php echo get_permalink($product_post); ?>">
