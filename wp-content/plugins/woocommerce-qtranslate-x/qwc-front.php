@@ -41,7 +41,7 @@ function qwc_add_filters_front() {
 		'woocommerce_gateway_icon' => 20,
 		'woocommerce_order_item_name' => 20,
 		'woocommerce_order_shipping_to_display' => 20,
-		'woocommerce_order_tax_totals' => 20,
+		// 'woocommerce_order_tax_totals' => 20,
 		'woocommerce_product_title' => 20,
 		'woocommerce_rate_label' => 20,
 

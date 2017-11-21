@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 20:00+0000\n"
+"POT-Creation-Date: 2017-11-14 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -74,47 +74,59 @@ msgstr ""
 msgid "Wear Tina"
 msgstr ""
 
-#: functions.php:98
+#: functions.php:29
+msgid "OK, Thanks"
+msgstr ""
+
+#: functions.php:30
+msgid "Thank you for subscribing"
+msgstr ""
+
+#: functions.php:31
+msgid "Error on subscribing"
+msgstr ""
+
+#: functions.php:102
 msgid "Cart Counter"
 msgstr ""
 
-#: functions.php:117
+#: functions.php:121
 msgid "Add to Menu"
 msgstr ""
 
-#: functions.php:239 single-post.php:25
+#: functions.php:243 single-post.php:25
 msgid "Previous"
 msgstr ""
 
-#: functions.php:240 single-post.php:33
+#: functions.php:244 single-post.php:33
 msgid "Next"
 msgstr ""
 
-#: functions.php:264
+#: functions.php:268
 msgid "Shop"
 msgstr ""
 
-#: functions.php:291
+#: functions.php:295
 msgid "Quickview"
 msgstr ""
 
-#: functions.php:355
+#: functions.php:359
 msgid "Description"
 msgstr ""
 
-#: functions.php:429 functions.php:437
+#: functions.php:433 functions.php:441
 msgid "This is a gift"
 msgstr ""
 
-#: functions.php:437
+#: functions.php:441
 msgid "Yes"
 msgstr ""
 
-#: functions.php:437
+#: functions.php:441
 msgid "No"
 msgstr ""
 
-#: functions.php:502 functions.php:516
+#: functions.php:506 functions.php:520
 msgid "Sold Out"
 msgstr ""
 

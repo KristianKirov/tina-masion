@@ -2050,3 +2050,14 @@ blockquote {
 .woocommerce-variation-availability .in-stock {
     display: none;
 }
+
+.b-lazy {
+    -webkit-transition: opacity 500ms ease-in-out;
+    -moz-transition: opacity 500ms ease-in-out;
+    -o-transition: opacity 500ms ease-in-out;
+    transition: opacity 500ms ease-in-out;
+    opacity: 0;
+}
+.b-lazy.b-loaded {
+    opacity: 1;
+}

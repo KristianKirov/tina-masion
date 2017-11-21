@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 22:30+0000\n"
+"POT-Creation-Date: 2017-11-21 20:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -74,59 +74,59 @@ msgstr ""
 msgid "Wear Tina"
 msgstr ""
 
-#: functions.php:29
+#: functions.php:28
 msgid "OK, Thanks"
 msgstr ""
 
-#: functions.php:30
+#: functions.php:29
 msgid "Thank you for subscribing"
 msgstr ""
 
-#: functions.php:31
+#: functions.php:30
 msgid "Error on subscribing"
 msgstr ""
 
-#: functions.php:102
+#: functions.php:104
 msgid "Cart Counter"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:123
 msgid "Add to Menu"
 msgstr ""
 
-#: functions.php:243 single-post.php:25
+#: functions.php:257 single-post.php:25
 msgid "Previous"
 msgstr ""
 
-#: functions.php:244 single-post.php:33
+#: functions.php:258 single-post.php:33
 msgid "Next"
 msgstr ""
 
-#: functions.php:268
+#: functions.php:282
 msgid "Shop"
 msgstr ""
 
-#: functions.php:295
+#: functions.php:326
 msgid "Quickview"
 msgstr ""
 
-#: functions.php:359
+#: functions.php:390
 msgid "Description"
 msgstr ""
 
-#: functions.php:433 functions.php:441
+#: functions.php:464 functions.php:472
 msgid "This is a gift"
 msgstr ""
 
-#: functions.php:441
+#: functions.php:472
 msgid "Yes"
 msgstr ""
 
-#: functions.php:441
+#: functions.php:472
 msgid "No"
 msgstr ""
 
-#: functions.php:506 functions.php:520
+#: functions.php:537 functions.php:551
 msgid "Sold Out"
 msgstr ""
 
@@ -225,6 +225,10 @@ msgstr ""
 
 #: woocommerce/checkout/form-shipping.php:19
 msgid "Shipping"
+msgstr ""
+
+#: woocommerce/checkout/form-shipping.php:50
+msgid "Additional Information"
 msgstr ""
 
 #: woocommerce/checkout/review-order.php:73

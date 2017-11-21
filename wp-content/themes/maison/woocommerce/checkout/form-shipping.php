@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php /* if ( ! WC()->cart->needs_shipping() || wc_ship_to_billing_address_only() ) : */ ?>
 
-			<h4 class="co-section-title"><?php _e( 'Additional Information', 'woocommerce' ); ?></h4>
+			<h4 class="co-section-title"><?php _e( 'Additional Information', 'maison-tina' ); ?></h4>
 
 		<?php /* endif; */ ?>
 

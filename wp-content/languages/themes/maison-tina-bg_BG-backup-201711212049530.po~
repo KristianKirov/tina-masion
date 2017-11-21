@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Maison Tina\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 20:01+0000\n"
-"PO-Revision-Date: 2017-11-14 20:01+0000\n"
+"POT-Creation-Date: 2017-11-14 22:30+0000\n"
+"PO-Revision-Date: 2017-11-14 22:31+0000\n"
 "Last-Translator: Kristian Kirov <kristiankirov9112@gmail.com>\n"
 "Language-Team: Bulgarian\n"
 "Language: bg-BG\n"
@@ -13,9 +13,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: woocommerce/single-product/add-to-cart/variable.php:35
-msgid "Select"
-msgstr "Избери"
+#: functions.php:29
+msgid "OK, Thanks"
+msgstr "Добре, Благодаря"
+
+#: functions.php:30
+msgid "Thank you for subscribing"
+msgstr "Благодарим Ви за записването"
+
+#: functions.php:31
+msgid "Error on subscribing"
+msgstr "Грешка при записване"
 
 #: 404.php:16
 msgid "The page you’re looking for"
@@ -77,47 +85,47 @@ msgstr "Информация"
 msgid "Wear Tina"
 msgstr "Носи Tina"
 
-#: functions.php:98
+#: functions.php:102
 msgid "Cart Counter"
 msgstr "Броят Количка"
 
-#: functions.php:117
+#: functions.php:121
 msgid "Add to Menu"
 msgstr "Добави към Менюто"
 
-#: functions.php:239 single-post.php:25
+#: functions.php:243 single-post.php:25
 msgid "Previous"
 msgstr "Предишен"
 
-#: functions.php:240 single-post.php:33
+#: functions.php:244 single-post.php:33
 msgid "Next"
 msgstr "Следващ"
 
-#: functions.php:264
+#: functions.php:268
 msgid "Shop"
 msgstr "Магазин"
 
-#: functions.php:291
+#: functions.php:295
 msgid "Quickview"
 msgstr "Бърз преглед"
 
-#: functions.php:355
+#: functions.php:359
 msgid "Description"
 msgstr "Описание"
 
-#: functions.php:429 functions.php:437
+#: functions.php:433 functions.php:441
 msgid "This is a gift"
 msgstr "Това е подарък"
 
-#: functions.php:437
+#: functions.php:441
 msgid "Yes"
 msgstr "Да"
 
-#: functions.php:437
+#: functions.php:441
 msgid "No"
 msgstr "Не"
 
-#: functions.php:502 functions.php:516
+#: functions.php:506 functions.php:520
 msgid "Sold Out"
 msgstr "Разпродаден"
 
@@ -225,6 +233,10 @@ msgstr "Натиснете за да въведете промо код."
 #: woocommerce/checkout/thankyou.php:36
 msgid "Order"
 msgstr "Почъка"
+
+#: woocommerce/single-product/add-to-cart/variable.php:35
+msgid "Select"
+msgstr "Избери"
 
 #. Name of the theme
 msgid "Maison Tina"

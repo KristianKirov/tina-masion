@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Maison Tina\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 22:30+0000\n"
-"PO-Revision-Date: 2017-11-14 22:31+0000\n"
+"POT-Creation-Date: 2017-11-21 20:49+0000\n"
+"PO-Revision-Date: 2017-11-21 20:49+0000\n"
 "Last-Translator: Kristian Kirov <kristiankirov9112@gmail.com>\n"
 "Language-Team: Bulgarian\n"
 "Language: bg-BG\n"
@@ -13,17 +13,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: functions.php:29
-msgid "OK, Thanks"
-msgstr "Добре, Благодаря"
-
-#: functions.php:30
-msgid "Thank you for subscribing"
-msgstr "Благодарим Ви за записването"
-
-#: functions.php:31
-msgid "Error on subscribing"
-msgstr "Грешка при записване"
+#: woocommerce/checkout/form-shipping.php:50
+msgid "Additional Information"
+msgstr "Допълнителна Информация"
 
 #: 404.php:16
 msgid "The page you’re looking for"
@@ -85,47 +77,59 @@ msgstr "Информация"
 msgid "Wear Tina"
 msgstr "Носи Tina"
 
-#: functions.php:102
+#: functions.php:28
+msgid "OK, Thanks"
+msgstr "Добре, Благодаря"
+
+#: functions.php:29
+msgid "Thank you for subscribing"
+msgstr "Благодарим Ви за записването"
+
+#: functions.php:30
+msgid "Error on subscribing"
+msgstr "Грешка при записване"
+
+#: functions.php:104
 msgid "Cart Counter"
 msgstr "Броят Количка"
 
-#: functions.php:121
+#: functions.php:123
 msgid "Add to Menu"
 msgstr "Добави към Менюто"
 
-#: functions.php:243 single-post.php:25
+#: functions.php:257 single-post.php:25
 msgid "Previous"
 msgstr "Предишен"
 
-#: functions.php:244 single-post.php:33
+#: functions.php:258 single-post.php:33
 msgid "Next"
 msgstr "Следващ"
 
-#: functions.php:268
+#: functions.php:282
 msgid "Shop"
 msgstr "Магазин"
 
-#: functions.php:295
+#: functions.php:326
 msgid "Quickview"
 msgstr "Бърз преглед"
 
-#: functions.php:359
+#: functions.php:390
 msgid "Description"
 msgstr "Описание"
 
-#: functions.php:433 functions.php:441
+#: functions.php:464 functions.php:472
 msgid "This is a gift"
 msgstr "Това е подарък"
 
-#: functions.php:441
+#: functions.php:472
 msgid "Yes"
 msgstr "Да"
 
-#: functions.php:441
+#: functions.php:472
 msgid "No"
 msgstr "Не"
 
-#: functions.php:506 functions.php:520
+#: functions.php:537 functions.php:551
 msgid "Sold Out"
 msgstr "Разпродаден"
 

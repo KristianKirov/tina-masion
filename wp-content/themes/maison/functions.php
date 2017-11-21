@@ -624,8 +624,9 @@ class MAISON_Customer_Data_Store_Session extends WC_Customer_Data_Store_Session 
 }
 
 function maison_wc_price_args($args) {
-	if (!is_admin()) {
-		$current_currentcy_zone_id = WC_Product_Price_Based_Country::instance()->customer->zone_id;
+	$price_based_country = WC_Product_Price_Based_Country::instance();
+	if ($price_based_country->customer) {
+		$current_currentcy_zone_id = $price_based_country->customer->zone_id;
 		if ($current_currentcy_zone_id === 'bulgaria') {
 			$args['price_format'] = '%2$s&nbsp;%1$s';
 			$args['decimal_separator'] = ',';
