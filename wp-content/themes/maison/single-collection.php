@@ -70,6 +70,7 @@ $show_making = $video_thumbnail && $video;
 ?>
 
 <header class="section section--full section--background section--white section--head u-pr" style="background-image: url(<?php echo get_field('hero_image'); ?>)">
+    <?php if (get_field('add_overlay_hero')): require('inc/overlay.php'); endif; ?>
     <section class="section">
         <div class="container-fluid">
             <div class="row">
