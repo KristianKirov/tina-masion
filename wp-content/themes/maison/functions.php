@@ -149,7 +149,7 @@ function maison_nav_menu_items($items) {
 			}
 		}
 		else if ($item->object_id == $shop_page && $item->object === 'page') {
-			$first_product_category = get_terms(array('taxonomy' => 'product_cat', 'number' => 1));
+			$first_product_category = get_terms(array('taxonomy' => 'product_cat', 'parent' => 0, 'number' => 1));
 			if (!empty($first_product_category)) {
 				$first_product_category =  current($first_product_category);
 				$first_product_category_child = get_terms(array('taxonomy' => 'product_cat', 'parent' => $first_product_category->term_id, 'number' => 1));
