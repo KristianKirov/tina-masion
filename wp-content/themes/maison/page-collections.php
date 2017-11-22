@@ -12,6 +12,7 @@
     ?>
 
     <section class="section section--background section--background-outter section--white collection-slide" style="background-image: url('<?php echo get_the_post_thumbnail_url(null, 'full'); ?>');">
+        <?php if (get_field('add_overlay')): require('inc/overlay.php'); endif; ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-offset-1 col-md-15">

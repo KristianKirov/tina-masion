@@ -1,7 +1,8 @@
 <?php get_header(); the_post(); ?>
 
 <header class="section section--full section--background section--white section--maison u-pr" style="background-image: url(<?php echo get_field('heroimage'); ?>)">
-    <section class="section">
+    <?php if (get_field('add_overlay')): require('inc/overlay.php'); endif; ?>
+    <section class="section u-pr">
         <div class="container-fluid">
             <div class="u-tac">
                 <h4 class="u-fwt">The</h4>

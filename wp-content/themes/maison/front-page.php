@@ -9,7 +9,8 @@ if ( have_posts() ) :
         $first_collection_url = get_permalink($first_collection);
         $second_collection = get_field('secondcollection');
         $second_collection_url = get_permalink($second_collection); ?>
-<header class="section section--full section--background section--background-right section--head section--head--home section--white" style="background-image: url(<?php echo get_field('heroimage'); ?>)">
+<header class="section section--full section--background section--background-right section--head section--head--home section--white u-pr" style="background-image: url(<?php echo get_field('heroimage'); ?>)">
+    <?php if (get_field('add_overlay')): require('inc/overlay.php'); endif; ?>
     <section class="section">
         <div class="container-fluid">
             <div class="row">
