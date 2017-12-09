@@ -154,10 +154,12 @@ if ($second_collection_second_image_url): ?>
             <div class="col-md-offset-1 col-md-18">
                 <div class="row cols-2-sm--equal-height cols-2-xs--equal-height cols-4-gt-md--equal-height">
                     <?php
-                    $featured_products_meta_query = WC()->query->get_meta_query();
-                    $featured_products_meta_query[] = array(
-                        'key'   => '_featured',
-                        'value' => 'yes'
+                    $featured_products_tax_query = WC()->query->get_tax_query();
+                    $featured_products_tax_query[] = array(
+                        'taxonomy' => 'product_visibility',
+                        'field'    => 'name',
+                        'terms'    => 'featured',
+                        'operator' => 'IN'
                     );
 
                     $featured_products_query_args = array(
@@ -167,7 +169,7 @@ if ($second_collection_second_image_url): ?>
                         'posts_per_page'      => -1,
                         'orderby'             => 'date',
                         'order'               => 'desc',
-                        'meta_query'          => $featured_products_meta_query
+                        'tax_query'          => $featured_products_tax_query
                     );
                     
                     $featured_products_query = new WP_Query($featured_products_query_args);
