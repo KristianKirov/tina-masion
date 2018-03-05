@@ -63,6 +63,10 @@
             self.down();
         });
 
+        window.setInterval(function () {
+            self.down();
+        }, 12000);
+
         this._selectCurrentPage();
     }
 
@@ -531,7 +535,7 @@
             this.disabled = false;
             $(this).removeClass('disabled');
         });
-        });;
+        });
     });
 
     $(document).on('change', '.shop_table .qty',

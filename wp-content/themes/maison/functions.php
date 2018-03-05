@@ -637,3 +637,36 @@ function maison_wc_price_args($args) {
 	return $args;
 }
 add_filter('wc_price_args', 'maison_wc_price_args');
+
+function maison_woocommerce_order_data_store_cpt_get_orders_query($query, $query_vars) {
+	if (!empty($query_vars['fibank_transaction_id'] ) ) {
+		$query['meta_query'][] = array(
+			'key' => '_fibank_transaction_id',
+			'value' => esc_attr($query_vars['fibank_transaction_id']),
+		);
+	}
+
+	return $query;
+}
+add_filter('woocommerce_order_data_store_cpt_get_orders_query', 'maison_woocommerce_order_data_store_cpt_get_orders_query', 10, 2 );
+
+function maison_document_title_separator($sep) {
+    return '|';
+}
+add_filter('document_title_separator', 'maison_document_title_separator');
+
+function maison_wp_head() {
+	$frontPageId = get_option('page_on_front');
+	if (empty($frontPageId)) {
+		return;
+	}
+
+	$homeHeroImage = get_field('heroimage', $frontPageId);
+	if (empty($homeHeroImage)) {
+		return;
+	}
+
+	echo "<meta property=\"og:image\" content=\"$homeHeroImage\">" .
+		"<meta property=\"twitter:image\" content=\"$homeHeroImage\">";
+}
+add_action('wp_head', 'maison_wp_head');

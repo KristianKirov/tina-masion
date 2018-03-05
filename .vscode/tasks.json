@@ -13,13 +13,13 @@
         },
         {
             "type": "shell",
-            "taskName": "stop-iis",
+            "label": "stop-iis",
             "command": "start-process -FilePath PowerShell -Verb Runas -Wait -ArgumentList \"\\\"iisreset /STOP\\\"\"",
             "problemMatcher": []
         },
         {
             "type": "shell",
-            "taskName": "serve",
+            "label": "serve",
             "isBackground": true,
             "command": "C:\\Apache24\\bin\\httpd.exe",
             "dependsOn": "stop-iis",

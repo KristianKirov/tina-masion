@@ -15,7 +15,7 @@
                 <div class="nav-section u-tar">
                     <?php
                         wp_nav_menu(array('theme_location' => 'top-nav-right', 'container' => false));
-                        qtranxf_generateLanguageSelectCode(array('type' => 'image'));
+                        qtranxf_generateLanguageSelectCode(array('type' => 'text'));
                     ?>
 
                     <button type="button" class="nav-toggle js-nav-mobile-menu-toggle">

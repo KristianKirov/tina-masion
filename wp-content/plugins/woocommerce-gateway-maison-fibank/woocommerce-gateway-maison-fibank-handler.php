@@ -18,24 +18,18 @@ class Gateway_Maison_Fibank_Gateway_Handler {
         }
     
         $fibank_transaction_id = $_POST['trans_id'];
-        $order_id = $_POST['description'];
-
-        if (empty($fibank_transaction_id) || empty($order_id)) {
+        if (empty($fibank_transaction_id)) {
             wp_die('Maison Fibank Request Failure (Missing arguments)', 'Maison Fibank', array('response' => 500));
             exit;
         }
     
-        $order = wc_get_order($order_id);
-        if (!$order) {
+        $orders = wc_get_orders(array('limit' => 1, 'fibank_transaction_id' => $fibank_transaction_id));
+        if (empty($orders)) {
             wp_die('Maison Fibank Request Failure (No order found)', 'Maison Fibank', array('response' => 500));
             exit;
         }
 
-        $stored_fibank_transaction_id = get_post_meta( $order->get_id(), '_fibank_transaction_id', true );
-        if ($stored_fibank_transaction_id != $fibank_transaction_id) {
-            wp_die('Maison Fibank Request Failure (Transaction id mismatch)', 'Maison Fibank', array('response' => 500));
-            exit;
-        }
+        $order = $orders[0];
     
         include_once( dirname( __FILE__ ) . '/maison-fibank-client.php' );
         $fibank_client = new Maison_Fibank_Client($this->test_mode, $this->certificate_path, $this->certificate_password);
@@ -43,7 +37,7 @@ class Gateway_Maison_Fibank_Gateway_Handler {
         $fibank_transaction_status_response =  $fibank_client->get_transaction_status($fibank_transaction_id, $client_ip);
         if ($fibank_transaction_status_response['success']) {
             $fibank_transaction_status_success = $fibank_transaction_status_response['data'];
-            // Order is not already payed
+            // Order is not payed yet
             if (!$order->has_status(wc_get_is_paid_statuses())) {
                 $order->add_order_note('Fibank payment completed. ' . $fibank_transaction_status_success);
                 $order->payment_complete();

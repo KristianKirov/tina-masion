@@ -103,10 +103,31 @@ function init_maison_fibank_gateway_class() {
             $order = wc_get_order( $order_id );
 
             include_once( dirname( __FILE__ ) . '/maison-fibank-client.php' );
+            $transaction_currency = null;
+            $order_currency = $order->get_currency();
+            if ($order_currency == 'BGN') {
+                $transaction_currency = Maison_Fibank_Currency::$BGN;
+            }
+            else if ($order_currency == 'EUR') {
+                $transaction_currency = Maison_Fibank_Currency::$EUR;
+            }
+            else if ($order_currency == 'USD') {
+                $transaction_currency = Maison_Fibank_Currency::$USD;
+            }
+
+            if ($transaction_currency == null) {
+                $not_supported_currency_error_message = 'Payments in ' . $order_currency . ' are not supported by the ' . $this->title . ' payment processor.';
+
+                $order->add_order_note($not_supported_currency_error_message);
+                wc_add_notice($not_supported_currency_error_message, 'error');
+
+                return;
+            }
+
             $fibank_client = new Maison_Fibank_Client($this->test_mode, $this->certificate_path, $this->certificate_password);
             $order_total = $order->get_total();
             $client_ip = get_client_ip();
-            $register_transaction_result = $fibank_client->register_transaction($order_total, Maison_Fibank_Currency::$EUR, $client_ip, $order_id);
+            $register_transaction_result = $fibank_client->register_transaction($order_total, $transaction_currency, $client_ip, $order_id);
             if (!$register_transaction_result['success']) {
                 $register_transaction_error = $register_transaction_result['data'];
                 $error_message = 'Error on registering Fibank transaction: ' . $register_transaction_error;
