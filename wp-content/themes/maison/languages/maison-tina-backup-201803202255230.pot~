@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 22:30+0000\n"
+"POT-Creation-Date: 2018-03-19 22:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -50,84 +50,95 @@ msgstr ""
 msgid "Website by"
 msgstr ""
 
-#: front-page.php:20 front-page.php:32 page-collections.php:24
+#: front-page.php:21 front-page.php:33 page-collections.php:25
 msgid "Discover"
 msgstr ""
 
-#: front-page.php:38
+#: front-page.php:39
 msgid "Collections"
 msgstr ""
 
-#: front-page.php:54 front-page.php:94 inc/home-collection-media.php:26
+#: front-page.php:55 front-page.php:95 inc/home-collection-media.php:26
 msgid "View"
 msgstr ""
 
-#: front-page.php:137
+#: front-page.php:138
 msgid "Explore"
 msgstr ""
 
-#: front-page.php:141 single-collection.php:86
+#: front-page.php:142 single-collection.php:87
 msgid "About"
 msgstr ""
 
-#: front-page.php:150
+#: front-page.php:151
 msgid "Wear Tina"
 msgstr ""
 
-#: functions.php:29
+#: functions.php:28
 msgid "OK, Thanks"
 msgstr ""
 
-#: functions.php:30
+#: functions.php:29
 msgid "Thank you for subscribing"
 msgstr ""
 
-#: functions.php:31
+#: functions.php:30
 msgid "Error on subscribing"
 msgstr ""
 
-#: functions.php:102
+#: functions.php:105
 msgid "Cart Counter"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:124
 msgid "Add to Menu"
 msgstr ""
 
-#: functions.php:243 single-post.php:25
+#: functions.php:258 single-post.php:25
 msgid "Previous"
 msgstr ""
 
-#: functions.php:244 single-post.php:33
+#: functions.php:259 single-post.php:33
 msgid "Next"
 msgstr ""
 
-#: functions.php:268
+#: functions.php:283
 msgid "Shop"
 msgstr ""
 
-#: functions.php:295
+#: functions.php:327
 msgid "Quickview"
 msgstr ""
 
-#: functions.php:359
+#: functions.php:391
 msgid "Description"
 msgstr ""
 
-#: functions.php:433 functions.php:441
+#: functions.php:465 functions.php:473
 msgid "This is a gift"
 msgstr ""
 
-#: functions.php:441
+#: functions.php:473
 msgid "Yes"
 msgstr ""
 
-#: functions.php:441
+#: functions.php:473
 msgid "No"
 msgstr ""
 
-#: functions.php:506 functions.php:520
+#: functions.php:538 functions.php:552
 msgid "Sold Out"
+msgstr ""
+
+#: functions.php:688
+#, php-format
+msgid ""
+"<strong>*</strong> Please have in mind that this is carried out and "
+"processed in currency <strong>Bulgarian Lev (BGN)</strong>!\n"
+"\t\tThe prices in euros are calculated at a rate of %s BGN for 1 Euro.\n"
+"\t\tThis rate may slightly differ from the rate of the bank which is "
+"responsible for the transaction\n"
+"\t\tto your card account!"
 msgstr ""
 
 #: home.php:33 home.php:42
@@ -138,15 +149,15 @@ msgstr ""
 msgid "Older"
 msgstr ""
 
-#: page-the-maison.php:26
+#: page-the-maison.php:27
 msgid "Philosophy"
 msgstr ""
 
-#: page-the-maison.php:55
+#: page-the-maison.php:56
 msgid "Craftsmanship"
 msgstr ""
 
-#: page-the-maison.php:106
+#: page-the-maison.php:107
 msgid "Creative"
 msgstr ""
 
@@ -171,23 +182,23 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: single-collection.php:88 single-collection.php:129
+#: single-collection.php:89 single-collection.php:130
 msgid "Campaign"
 msgstr ""
 
-#: single-collection.php:91
+#: single-collection.php:92
 msgid "Making"
 msgstr ""
 
-#: single-collection.php:93 single-collection.php:154
+#: single-collection.php:94 single-collection.php:155
 msgid "Lookbook"
 msgstr ""
 
-#: single-collection.php:111
+#: single-collection.php:112
 msgid "<small class=\"u-db u-mb2\">The</small> Collection"
 msgstr ""
 
-#: single-collection.php:192
+#: single-collection.php:193
 msgid "Shop the Collection"
 msgstr ""
 
@@ -225,6 +236,10 @@ msgstr ""
 
 #: woocommerce/checkout/form-shipping.php:19
 msgid "Shipping"
+msgstr ""
+
+#: woocommerce/checkout/form-shipping.php:50
+msgid "Additional Information"
 msgstr ""
 
 #: woocommerce/checkout/review-order.php:73

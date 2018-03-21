@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Maison Tina\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-21 20:49+0000\n"
-"PO-Revision-Date: 2017-11-21 20:49+0000\n"
+"POT-Creation-Date: 2018-03-20 22:55+0000\n"
+"PO-Revision-Date: 2018-03-20 22:56+0000\n"
 "Last-Translator: Kristian Kirov <kristiankirov9112@gmail.com>\n"
 "Language-Team: Bulgarian\n"
 "Language: bg-BG\n"
@@ -13,9 +13,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: woocommerce/checkout/form-shipping.php:50
-msgid "Additional Information"
-msgstr "Допълнителна Информация"
+#: functions.php:732
+#, php-format
+msgid ""
+"<strong>*</strong> Please have in mind that this is carried out and "
+"processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in "
+"euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly "
+"differ from the rate of the bank which is responsible for the transaction to "
+"your card account!"
+msgstr ""
+"<strong>*</strong> Моля имайте предвид, че тази транзакция се извършва и "
+"обработва в <strong>Български лева (лв.)</strong>! Цените в евро се "
+"калкулират при курс 1.95583 лв. за 1 евро. Може да има малки отклонения от "
+"този курс в зависимост от банката, отговорна за извъшването на транзакцията "
+"от Вашата сметка."
 
 #: 404.php:16
 msgid "The page you’re looking for"
@@ -53,27 +64,27 @@ msgstr "Следвай Tina"
 msgid "Website by"
 msgstr "Уебсайт от"
 
-#: front-page.php:20 front-page.php:32 page-collections.php:24
+#: front-page.php:21 front-page.php:33 page-collections.php:25
 msgid "Discover"
 msgstr "Открий"
 
-#: front-page.php:38
+#: front-page.php:39
 msgid "Collections"
 msgstr "Колекции"
 
-#: front-page.php:54 front-page.php:94 inc/home-collection-media.php:26
+#: front-page.php:55 front-page.php:95 inc/home-collection-media.php:26
 msgid "View"
 msgstr "Преглед"
 
-#: front-page.php:137
+#: front-page.php:138
 msgid "Explore"
 msgstr "Открий"
 
-#: front-page.php:141 single-collection.php:86
+#: front-page.php:142 single-collection.php:87
 msgid "About"
 msgstr "Информация"
 
-#: front-page.php:150
+#: front-page.php:151
 msgid "Wear Tina"
 msgstr "Носи Tina"
 
@@ -89,49 +100,65 @@ msgstr "Благодарим Ви за записването"
 msgid "Error on subscribing"
 msgstr "Грешка при записване"
 
-#: functions.php:104
+#: functions.php:105
 msgid "Cart Counter"
 msgstr "Броят Количка"
 
-#: functions.php:123
+#: functions.php:124
 msgid "Add to Menu"
 msgstr "Добави към Менюто"
 
-#: functions.php:257 single-post.php:25
+#: functions.php:258 single-post.php:25
 msgid "Previous"
 msgstr "Предишен"
 
-#: functions.php:258 single-post.php:33
+#: functions.php:259 single-post.php:33
 msgid "Next"
 msgstr "Следващ"
 
-#: functions.php:282
+#: functions.php:283
 msgid "Shop"
 msgstr "Магазин"
 
-#: functions.php:326
+#: functions.php:327
 msgid "Quickview"
 msgstr "Бърз преглед"
 
-#: functions.php:390
+#: functions.php:391
 msgid "Description"
 msgstr "Описание"
 
-#: functions.php:464 functions.php:472
+#: functions.php:465 functions.php:473
 msgid "This is a gift"
 msgstr "Това е подарък"
 
-#: functions.php:472
+#: functions.php:473
 msgid "Yes"
 msgstr "Да"
 
-#: functions.php:472
+#: functions.php:473
 msgid "No"
 msgstr "Не"
 
-#: functions.php:537 functions.php:551
+#: functions.php:538 functions.php:552
 msgid "Sold Out"
 msgstr "Разпродаден"
+
+#: functions.php:688
+#, php-format
+msgid ""
+"<strong>*</strong> Please have in mind that this is carried out and "
+"processed in currency <strong>Bulgarian Lev (BGN)</strong>!\n"
+"\t\tThe prices in euros are calculated at a rate of %s BGN for 1 Euro.\n"
+"\t\tThis rate may slightly differ from the rate of the bank which is "
+"responsible for the transaction\n"
+"\t\tto your card account!"
+msgstr ""
+"<strong>*</strong> Моля имайте предвид, че тази транзакция се извършва и "
+"обработва в <strong>Български лева (лв.)</strong>!\n"
+"Цените в евро се калкулират при курс %s лв. за 1 евро.\n"
+"Може да има малки отклонения от този курс в зависимост от банката, отговорна "
+"за извъшването на транзакцията от Вашата сметка."
 
 #: home.php:33 home.php:42
 msgid "Newer"
@@ -141,15 +168,15 @@ msgstr "По-нови"
 msgid "Older"
 msgstr "По-стари"
 
-#: page-the-maison.php:26
+#: page-the-maison.php:27
 msgid "Philosophy"
 msgstr "Философия"
 
-#: page-the-maison.php:55
+#: page-the-maison.php:56
 msgid "Craftsmanship"
 msgstr "Майсторска изработка"
 
-#: page-the-maison.php:106
+#: page-the-maison.php:107
 msgid "Creative"
 msgstr "Креативност"
 
@@ -174,23 +201,23 @@ msgstr "Подробен Преглед"
 msgid "All"
 msgstr "Всички"
 
-#: single-collection.php:88 single-collection.php:129
+#: single-collection.php:89 single-collection.php:130
 msgid "Campaign"
 msgstr "Кампания"
 
-#: single-collection.php:91
+#: single-collection.php:92
 msgid "Making"
 msgstr "Създаване"
 
-#: single-collection.php:93 single-collection.php:154
+#: single-collection.php:94 single-collection.php:155
 msgid "Lookbook"
 msgstr "Lookbook"
 
-#: single-collection.php:111
+#: single-collection.php:112
 msgid "<small class=\"u-db u-mb2\">The</small> Collection"
 msgstr "Колекцията"
 
-#: single-collection.php:192
+#: single-collection.php:193
 msgid "Shop the Collection"
 msgstr "Пазарувай Колекцията"
 
@@ -229,6 +256,10 @@ msgstr "Приложи"
 #: woocommerce/checkout/form-shipping.php:19
 msgid "Shipping"
 msgstr "Доставка"
+
+#: woocommerce/checkout/form-shipping.php:50
+msgid "Additional Information"
+msgstr "Допълнителна Информация"
 
 #: woocommerce/checkout/review-order.php:73
 msgid "Click here to enter your promo code."

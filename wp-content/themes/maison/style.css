@@ -2,7 +2,7 @@
 Theme Name: Maison Tina
 Author: Kristian Kirov
 Description: Wordpress theme exclusivelly developed for the http://maisontina.com/ website
-Version: 0.0.11
+Version: 0.0.12
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: maison-tina
@@ -339,6 +339,13 @@ Domain Path: /languages
     color: currentColor;
 }
 
+.nav-top--white {
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#00000000',GradientType=0 );
+}
+
 .nav-top--white, .nav-top--white a {
     color: #fff;
 }
@@ -350,20 +357,8 @@ Domain Path: /languages
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%206%207%27%20fill%3D%22%23fff%22%3E%3Cpath%20d%3D%27M00%200%20L01%200%20L6%207%20L05%207%20Z%27%20%2F%3E%3C%2Fsvg%3E);
 }
 
-.nav-toggle, .nav-mobile-menu, .language-chooser, .qtranxs_widget_end {
+.nav-toggle, .nav-mobile-menu, .language-chooser, .qtranxs_widget_end, .mobile-only-menu {
     display: none;
-}
-
-.language-chooser {
-    margin-right: 7px;
-}
-
-ul.language-chooser a {
-    padding-top: 0;
-    padding-bottom: 0;
-    background-image: none !important;
-    line-height: 1;
-    vertical-align: bottom;
 }
 
 @media (max-width: 1180px) {
@@ -387,9 +382,20 @@ ul.language-chooser a {
         display: inline-block;
     }
 
+    .nav-top ul a {
+        padding-top: 29px;
+        padding-bottom: 29px;
+        background-image: none !important;
+    }
+
+    .nav-top--fixed ul a {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
     .nav-top--fixed .logo {
-        padding-top: 9px;
-        padding-bottom: 19px;
+        padding-top: 8px;
+        padding-bottom: 16px;
     }
 
     .nav-top .logo .img {
@@ -420,10 +426,13 @@ ul.language-chooser a {
         margin-bottom: 28px;
         width: 28px;
         line-height: 0px;
+        vertical-align: top;
+        margin-left: 7px;
     }
 
-    .language-chooser {
+    .language-chooser, .mobile-only-menu {
         display: inline-block !important;
+        vertical-align: top;
     }
 
     .nav-toggle .toggle-bar {
@@ -435,17 +444,9 @@ ul.language-chooser a {
     }
 
     .nav-top--fixed .nav-toggle {
-        margin-top: 17px;
-        margin-bottom: 17px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
-
-    /*.nav-top button {
-        -webkit-transition: margin 0.3s ease;
-        -moz-transition: margin 0.3s ease;
-        -ms-transition: margin 0.3s ease;
-        -o-transition: margin 0.3s ease;
-        transition: margin 0.3s ease;
-    }*/
 
     .nav-mobile-menu {
         display: block;

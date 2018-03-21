@@ -84,6 +84,7 @@ function maison_woocommerce_add_to_cart_fragments($fragments) {
 		maison_update_woo_counter_nav_item($woo_counter_menu_item);
 		
 		$fragments['li.menu-item-type-woocommerce-cart'] = maison_render_nav_item($woo_counter_menu_item);
+		$fragments['a.mobile-cart-link'] = render_mobile_cart_link();
 	}
 	
 	return $fragments;
@@ -670,3 +671,107 @@ function maison_wp_head() {
 		"<meta property=\"twitter:image\" content=\"$homeHeroImage\">";
 }
 add_action('wp_head', 'maison_wp_head');
+
+function render_mobile_cart_link() {
+	echo '<a href="';
+	echo WC()->cart->get_cart_url();
+	echo '" class="mobile-cart-link u-pr"><span class="icon-basket"></span>(';
+	echo wp_kses_data(WC()->cart->get_cart_contents_count());
+	echo ')</a>';
+}
+add_action('maison_mobile_cart_link', 'render_mobile_cart_link');
+
+function maison_woocommerce_gateway_description($description, $id) {
+	if ($id == 'maison_fibank_gateway') {
+		$show_euro_payment_notice = false;
+		if (is_checkout()) {
+			global $wp;
+			if (!empty($wp->query_vars['order-pay'])) {
+				$order_id = $wp->query_vars['order-pay'];
+				$order = wc_get_order($order_id);
+				$order_currency = $order->get_currency();
+				$show_euro_payment_notice = $order_currency == 'EUR';
+			}
+			else {
+				$customer_currency = WCPBC_Frontend_Pricing::get_currency('');
+				$show_euro_payment_notice = empty($customer_currency) || $customer_currency == 'EUR';
+			}
+		}
+
+		if ($show_euro_payment_notice) {
+			$description .=
+				'<div class="woocommerce-info u-mb1">' .
+				sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), maison_get_euro_to_bgn_exchange_rate()) .
+				'</div>';
+		}
+	}
+
+	return $description;
+}
+add_filter('woocommerce_gateway_description', 'maison_woocommerce_gateway_description', 10, 2);
+
+function maison_get_order_price_in_bgn_html($total_in_euro) {
+	$value_in_bgn = maison_euro_to_bgn($total_in_euro);
+	
+	$string_value_in_bgn = wc_price($value_in_bgn, array(
+		'price_format' => '%2$s&nbsp;BGN'
+	));
+
+	return ' (=' . $string_value_in_bgn . '<strong>*</strong>)';
+}
+
+function maison_cart_totals_order_total_html($value) {
+	$customer_currency = WCPBC_Frontend_Pricing::get_currency(false);
+	// Default currency or EUR
+	if (empty($customer_currency) || $customer_currency == 'EUR') {
+		$cart_total_in_euro = WC()->cart->total;
+		$value_in_bgn_html = maison_get_order_price_in_bgn_html($cart_total_in_euro);
+
+		return $value . $value_in_bgn_html;
+	}
+
+	return $value;
+}
+add_filter('woocommerce_cart_totals_order_total_html', 'maison_cart_totals_order_total_html');
+
+function maison_form_pay_format_product_total($total, $total_key, $order) {
+	if ($total_key == 'order_total') {
+		$order_currency = $order->get_currency();
+		if ($order_currency == 'EUR') {
+			$order_total = $order->get_total();
+			$value_in_bgn_html = maison_get_order_price_in_bgn_html($order_total);
+
+			return $total . $value_in_bgn_html;
+		}
+	}
+
+	return $total;
+}
+add_filter('maison_form_pay_product_total', 'maison_form_pay_format_product_total', 10, 3);
+
+function maison_euro_to_bgn($value) {
+	$exchange_rate = maison_get_euro_to_bgn_exchange_rate();
+
+	return $value * $exchange_rate;
+}
+
+function maison_get_euro_to_bgn_exchange_rate() {
+	$regions_data = WCPBC()->get_regions();
+	$euro_to_bgn_region = current(array_filter($regions_data, function ($r) { return $r['currency'] == 'BGN'; }));
+	$exchange_rate = $euro_to_bgn_region['exchange_rate'];
+
+	return $exchange_rate;
+}
+
+function maison_fibank_convert_cart_total_to_bgn($value, $currency) {
+	if ($currency == 'BGN') {
+		return $value;
+	}
+
+	if ($currency == 'EUR') {
+		return maison_euro_to_bgn($value);
+	}
+
+	return false;
+}
+add_filter('maison_fibank_cart_total_to_bgn', 'maison_fibank_convert_cart_total_to_bgn', 10, 2);

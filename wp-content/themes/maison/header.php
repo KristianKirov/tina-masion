@@ -10,6 +10,10 @@
                     <a href="<?php echo home_url('/') ?>" class="logo">
                         <span class="img"></span>
                     </a>
+
+                    <ul class="mobile-only-menu">
+                        <li><?php do_action('maison_mobile_cart_link'); ?></li>
+                    </ul>
                 </div>
                 
                 <div class="nav-section u-tar">

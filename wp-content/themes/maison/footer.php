@@ -50,7 +50,7 @@
             </footer>
 
             <div class="clearfix copyright">
-                <small class="u-fl">&copy; 2011 Copyright MAISON TINA.</small>
+                <small class="u-fl">&copy; <?php echo date("Y"); ?> Copyright MAISON TINA.</small>
                 <small class="u-fr"><?php _e('Website by', 'maison-tina') ?>: Acataleo</small>
             </div>
         </div>

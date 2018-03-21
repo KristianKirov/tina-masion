@@ -65,7 +65,7 @@
 
         window.setInterval(function () {
             self.down();
-        }, 12000);
+        }, 6000);
 
         this._selectCurrentPage();
     }

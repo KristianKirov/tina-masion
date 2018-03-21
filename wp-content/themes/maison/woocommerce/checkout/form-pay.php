@@ -53,10 +53,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tbody>
 		<tfoot>
 			<?php if ( $totals = $order->get_order_item_totals() ) : ?>
-				<?php foreach ( $totals as $total ) : ?>
+				<?php foreach ( $totals as $total_key => $total ) : ?>
 					<tr>
 						<th scope="row" colspan="2"><?php echo $total['label']; ?></th>
-						<td class="product-total"><?php echo $total['value']; ?></td>
+						<td class="product-total"><?php echo apply_filters('maison_form_pay_product_total', $total['value'], $total_key, $order); ?></td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
