@@ -129,7 +129,15 @@ function init_maison_fibank_gateway_class() {
             }
             
             $fibank_transaction_id = $register_transaction_result['transaction_id'];
-            update_post_meta( $order->get_id(), '_fibank_transaction_id', $fibank_transaction_id );
+            add_post_meta( $order->get_id(), '_fibank_transaction_id', $fibank_transaction_id, false );
+            wp_insert_post(array('post_type' => 'maison_fibank_trans', 'post_title' => $fibank_transaction_id, 'post_excerpt' => $client_ip));
+            $order_update_message = "Registered Fibank transaction with id $fibank_transaction_id for $order_total BGN.";
+            if($order->get_status() == 'pending') {
+                $order->add_order_note($order_update_message);
+            }
+            else {
+                $order->update_status('pending', $order_update_message);
+            }
             
             $fiban_payment_base_url = $this->test_mode ? 'https://mdpay-test.fibank.bg/ecomm/ClientHandler' : 'https://mdpay.fibank.bg/ecomm/ClientHandler';
             $fibank_payment_url = $fiban_payment_base_url . '?trans_id=' . urlencode($fibank_transaction_id);
@@ -149,3 +157,89 @@ function add_maison_fibank_gateway_class($methods) {
 }
 
 add_filter( 'woocommerce_payment_gateways', 'add_maison_fibank_gateway_class' );
+
+function maison_fibank_register_transactions_post_type() {
+    register_post_type('maison_fibank_trans', array(
+        'labels' => array(
+            'name' => __( 'Fibank Transactions', 'woocommerce-gateway-maison-fibank' ),
+            'singular_name' => __( 'Fibank Transaction', 'woocommerce-gateway-maison-fibank' )
+        ),
+        'description' => __('Stores all pending Fibank transactions', 'woocommerce-gateway-maison-fibank'),
+        'supports' => array('title', 'excerpt'),
+        'public' => true,
+        'has_archive' => false,
+        'hierarchical' => false,
+        'has_archive' => false,
+        'exclude_from_search' => true
+    ));
+}
+add_action( 'init', 'maison_fibank_register_transactions_post_type' );
+
+function maison_custom_checkout_field_display_admin_order_meta($order){
+	$order_id = $order->get_id();
+	$order_payment_method = $order->get_payment_method();
+	if ($order_payment_method == 'maison_fibank_gateway') {
+		$fibank_transaction_ids = get_post_meta($order_id, '_fibank_transaction_id');
+		$fibank_transaction_ids_markup = implode('<br />', $fibank_transaction_ids);
+		echo '<p><strong>Fibank Transaction Ids:</strong><br />' . $fibank_transaction_ids_markup . '</p>';
+	}
+}
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'maison_custom_checkout_field_display_admin_order_meta', 10, 1 );
+
+function maison_woocommerce_order_data_store_cpt_get_orders_query($query, $query_vars) {
+	if (!empty($query_vars['fibank_transaction_id'] ) ) {
+		$query['meta_query'][] = array(
+			'key' => '_fibank_transaction_id',
+			'value' => esc_attr($query_vars['fibank_transaction_id']),
+		);
+	}
+
+	return $query;
+}
+add_filter('woocommerce_order_data_store_cpt_get_orders_query', 'maison_woocommerce_order_data_store_cpt_get_orders_query', 10, 2 );
+
+function update_pending_orders_status() {
+    try {
+        $pending_transactions = get_posts(array(
+            'post_type' => 'maison_fibank_trans',
+            'posts_per_page' => -1,
+            'post_status' => 'any',
+            'date_query' => array(
+                'before' => '30 minutes ago' 
+            )));
+        if (empty($pending_transactions)) {
+            return;
+        }
+    
+        $fibank_settings = get_option('woocommerce_maison_fibank_gateway_settings');
+        $is_fibank_plugin_enabled = $fibank_settings['enabled'] == 'yes';
+        $is_fibank_plugin_in_test_mode = $fibank_settings['test_mode'] == 'yes';
+        include_once(dirname(__FILE__) . '/maison-fibank-client.php');
+        $fibank_client = new Maison_Fibank_Client($is_fibank_plugin_in_test_mode, $fibank_settings['certificate_path'], $fibank_settings['certificate_password']);
+
+        foreach ($pending_transactions as $pending_transaction) {
+            $fibank_transaction_id = $pending_transaction->post_title;
+            try {
+                $orders = wc_get_orders(array('limit' => 1, 'fibank_transaction_id' => $fibank_transaction_id));
+                
+                if (empty($orders)) {
+                    error_log("PENDING ORDERS: No order found for fibank transaction with id $fibank_transaction_id");
+                }
+                else {
+                    $order = $orders[0];
+                    $order_client_ip = $pending_transaction->post_excerpt;
+                    maison_fibank_update_order_status($fibank_client, $order, $fibank_transaction_id, $order_client_ip, 'PENDING ORDERS');
+                }
+        
+                wp_delete_post($pending_transaction->ID, true);
+            }
+            catch (Exception $iex) {
+                error_log("PENDING ORDERS: Transaction id:$fibank_transaction_id $iex");
+            }
+        }
+    }
+    catch (Exception $ex) {
+        error_log($ex);
+    }
+}
+add_action('woocommerce_cancel_unpaid_orders', 'update_pending_orders_status', 1);

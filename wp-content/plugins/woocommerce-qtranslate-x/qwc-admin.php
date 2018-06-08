@@ -661,8 +661,8 @@ add_filter('option_woocommerce_email_from_name', 'qwc_admin_email_option');
 function qwc_admin_email_translate($content, $order=null) {
 	global $q_config;
 	$lang = null;
-	if($order && isset($order->id)){
-		$lang = get_post_meta( $order->id, '_user_language', true );
+	if($order && $order->get_id()){
+		$lang = get_post_meta( $order->get_id(), '_user_language', true );
 	}
 	if(!$lang) $lang = $q_config['language'];
 	return qtranxf_use($lang, $content, false, false);
@@ -675,8 +675,8 @@ add_filter('woocommerce_email_order_items_table', 'qwc_admin_email_translate', 2
  * @since 1.1
  */
 function qwc_admin_before_resend_order_emails($order) {
-	if(!$order || !isset($order->id)) return;
-	$lang = get_post_meta( $order->id, '_user_language', true );
+	if(!$order || !$order->get_id()) return;
+	$lang = get_post_meta( $order->get_id(), '_user_language', true );
 	if(!$lang) return;
 	global $q_config;
 	$q_config['language'] = $lang;

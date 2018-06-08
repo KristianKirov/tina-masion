@@ -556,15 +556,6 @@ function maison_woocommerce_product_single_add_to_cart_text($text, $product) {
 }
 add_filter('woocommerce_product_single_add_to_cart_text', 'maison_woocommerce_product_single_add_to_cart_text', 10, 2);
 
-add_action( 'woocommerce_admin_order_data_after_billing_address', 'maison_custom_checkout_field_display_admin_order_meta', 10, 1 );
-function maison_custom_checkout_field_display_admin_order_meta($order){
-	$order_id = $order->get_id();
-	$order_payment_method = $order->get_payment_method();
-	if ($order_payment_method == 'maison_fibank_gateway') {
-		echo '<p><strong>Fibank Transaction Id:</strong> ' . get_post_meta($order_id, '_fibank_transaction_id', true) . '</p>';
-	}
-}
-
 add_action('woocommerce_thankyou_bacs', 'maison_thankyou_bacs_start', 8);
 function maison_thankyou_bacs_start() {
 	?><div class="co-section"><?php
@@ -639,18 +630,6 @@ function maison_wc_price_args($args) {
 }
 add_filter('wc_price_args', 'maison_wc_price_args');
 
-function maison_woocommerce_order_data_store_cpt_get_orders_query($query, $query_vars) {
-	if (!empty($query_vars['fibank_transaction_id'] ) ) {
-		$query['meta_query'][] = array(
-			'key' => '_fibank_transaction_id',
-			'value' => esc_attr($query_vars['fibank_transaction_id']),
-		);
-	}
-
-	return $query;
-}
-add_filter('woocommerce_order_data_store_cpt_get_orders_query', 'maison_woocommerce_order_data_store_cpt_get_orders_query', 10, 2 );
-
 function maison_document_title_separator($sep) {
     return '|';
 }
@@ -682,27 +661,33 @@ function render_mobile_cart_link() {
 add_action('maison_mobile_cart_link', 'render_mobile_cart_link');
 
 function maison_woocommerce_gateway_description($description, $id) {
-	if ($id == 'maison_fibank_gateway') {
-		$show_euro_payment_notice = false;
-		if (is_checkout()) {
-			global $wp;
-			if (!empty($wp->query_vars['order-pay'])) {
-				$order_id = $wp->query_vars['order-pay'];
-				$order = wc_get_order($order_id);
-				$order_currency = $order->get_currency();
-				$show_euro_payment_notice = $order_currency == 'EUR';
-			}
-			else {
-				$customer_currency = WCPBC_Frontend_Pricing::get_currency('');
-				$show_euro_payment_notice = empty($customer_currency) || $customer_currency == 'EUR';
-			}
+	if (($id == 'maison_fibank_gateway' || $id == 'paypal') && is_checkout()) {
+		global $wp;
+		$current_curency = '';
+		if (!empty($wp->query_vars['order-pay'])) {
+			$order_id = $wp->query_vars['order-pay'];
+			$order = wc_get_order($order_id);
+			$current_curency = $order->get_currency();
+		}
+		else {
+			$current_curency = WCPBC_Frontend_Pricing::get_currency('');
 		}
 
-		if ($show_euro_payment_notice) {
-			$description .=
-				'<div class="woocommerce-info u-mb1">' .
-				sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), maison_get_euro_to_bgn_exchange_rate()) .
-				'</div>';
+		if ($id == 'maison_fibank_gateway') {
+			if (empty($current_curency) || $current_curency == 'EUR') {
+				$description .=
+					'<div class="woocommerce-info u-mb1">' .
+					sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), maison_get_euro_to_bgn_exchange_rate()) .
+					'</div>';
+			}
+		}
+		elseif ($id == 'paypal') {
+			if ($current_curency == 'BGN') {
+				$description .=
+					'<div class="woocommerce-info u-mb1">' .
+					sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Euro (EUR)</strong>! The prices in Bulgarian Levs (BGN) are calculated at a rate of %s Euro for 1 BGN. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), round(maison_get_bgn_to_euro_exchange_rate(), 5)) .
+					'</div>';
+			}
 		}
 	}
 
@@ -720,6 +705,17 @@ function maison_get_order_price_in_bgn_html($total_in_euro) {
 	return ' (=' . $string_value_in_bgn . '<strong>*</strong>)';
 }
 
+function maison_get_order_price_in_euro_html($total_in_bgn) {
+	$value_in_euro = maison_bgn_to_euro($total_in_bgn);
+	
+	$string_value_in_euro = wc_price($value_in_euro, array(
+		'currency' => 'EUR',
+		'price_format' => '%1$s%2$s'
+	));
+
+	return ' (=' . $string_value_in_euro . '<strong>*</strong>)';
+}
+
 function maison_cart_totals_order_total_html($value) {
 	$customer_currency = WCPBC_Frontend_Pricing::get_currency(false);
 	// Default currency or EUR
@@ -728,6 +724,12 @@ function maison_cart_totals_order_total_html($value) {
 		$value_in_bgn_html = maison_get_order_price_in_bgn_html($cart_total_in_euro);
 
 		return $value . $value_in_bgn_html;
+	}
+	elseif ($customer_currency == 'BGN') {
+		$cart_total_in_bgn = WC()->cart->total;
+		$value_in_euro_html = maison_get_order_price_in_euro_html($cart_total_in_bgn);
+
+		return $value . $value_in_euro_html;
 	}
 
 	return $value;
@@ -743,6 +745,12 @@ function maison_form_pay_format_product_total($total, $total_key, $order) {
 
 			return $total . $value_in_bgn_html;
 		}
+		elseif ($order_currency == 'EUR') {
+			$order_total = $order->get_total();
+			$value_in_euro_html = maison_get_order_price_in_euro_html($order_total);
+
+			return $total . $value_in_euro_html;
+		}
 	}
 
 	return $total;
@@ -755,12 +763,24 @@ function maison_euro_to_bgn($value) {
 	return $value * $exchange_rate;
 }
 
+function maison_bgn_to_euro($value) {
+	$exchange_rate = maison_get_bgn_to_euro_exchange_rate();
+
+	return $value * $exchange_rate;
+}
+
 function maison_get_euro_to_bgn_exchange_rate() {
 	$regions_data = WCPBC()->get_regions();
 	$euro_to_bgn_region = current(array_filter($regions_data, function ($r) { return $r['currency'] == 'BGN'; }));
 	$exchange_rate = $euro_to_bgn_region['exchange_rate'];
 
 	return $exchange_rate;
+}
+
+function maison_get_bgn_to_euro_exchange_rate() {
+	$euro_to_bgn_exchange_rate = maison_get_euro_to_bgn_exchange_rate();
+
+	return 1 / $euro_to_bgn_exchange_rate;
 }
 
 function maison_fibank_convert_cart_total_to_bgn($value, $currency) {
@@ -775,3 +795,9 @@ function maison_fibank_convert_cart_total_to_bgn($value, $currency) {
 	return false;
 }
 add_filter('maison_fibank_cart_total_to_bgn', 'maison_fibank_convert_cart_total_to_bgn', 10, 2);
+
+function maison_bgn_to_euro_exchange_rate($value) {
+	return maison_get_bgn_to_euro_exchange_rate();
+}
+add_filter('option_wc_settings_paypal_currency_converter_manual_exchange_rate', 'maison_bgn_to_euro_exchange_rate');
+add_filter('default_option_wc_settings_paypal_currency_converter_manual_exchange_rate', 'maison_bgn_to_euro_exchange_rate');

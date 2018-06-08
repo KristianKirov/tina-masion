@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 22:31+0000\n"
+"POT-Creation-Date: 2018-03-20 22:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -139,6 +139,16 @@ msgid ""
 "\t\tThis rate may slightly differ from the rate of the bank which is "
 "responsible for the transaction\n"
 "\t\tto your card account!"
+msgstr ""
+
+#: functions.php:732
+#, php-format
+msgid ""
+"<strong>*</strong> Please have in mind that this is carried out and "
+"processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in "
+"euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly "
+"differ from the rate of the bank which is responsible for the transaction to "
+"your card account!"
 msgstr ""
 
 #: home.php:33 home.php:42
