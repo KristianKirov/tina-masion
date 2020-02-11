@@ -12,7 +12,7 @@ class Maison_Fibank_Client {
             $this->url = 'https://mdpay-test.fibank.bg:9443/ecomm/MerchantHandler';
         }
         else {
-            $this->url = 'https://mdpay.fibank.bg:9443/ecomm/MerchantHandler';
+            $this->url = 'https://mdpay.fibank.bg:10443/ecomm_v2/MerchantHandler';
         }
 
         $this->cert_path = $cert_path;

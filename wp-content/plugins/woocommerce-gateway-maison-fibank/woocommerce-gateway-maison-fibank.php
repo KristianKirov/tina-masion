@@ -139,7 +139,7 @@ function init_maison_fibank_gateway_class() {
                 $order->update_status('pending', $order_update_message);
             }
             
-            $fiban_payment_base_url = $this->test_mode ? 'https://mdpay-test.fibank.bg/ecomm/ClientHandler' : 'https://mdpay.fibank.bg/ecomm/ClientHandler';
+            $fiban_payment_base_url = $this->test_mode ? 'https://mdpay-test.fibank.bg/ecomm/ClientHandler' : 'https://mdpay.fibank.bg/ecomm_v2/ClientHandler';
             $fibank_payment_url = $fiban_payment_base_url . '?trans_id=' . urlencode($fibank_transaction_id);
 
             return array(
