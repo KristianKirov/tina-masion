@@ -17,7 +17,7 @@
         }
     }
 
-    $selected_category_css_class = "u-cblack";
+    $selected_category_css_class = "m-cat--selected";
     $shop_page_url = get_permalink(wc_get_page_id( 'shop' ));
     $product_categories = get_terms(array('taxonomy' => 'product_cat', 'hide_empty' => false));
     $product_hierarchical_categories = array();
@@ -25,7 +25,7 @@
     $current_product_category_id = null;
     if (is_product_category()) {
         $current_product_category = get_queried_object();
-        $current_product_category_id =  empty( $current_product_category->term_id ) ? null : $current_product_category->term_id;;
+        $current_product_category_id = empty( $current_product_category->term_id ) ? null : $current_product_category->term_id;;
     }
     ?>
 
@@ -35,11 +35,12 @@
         <li class="u-mb2">
             <a <?php if ($current_product_category_id == null) echo "class=\"$selected_category_css_class\""; ?> href="<?php echo $shop_page_url; ?>"><?php _e('All', 'maison-tina') ?></a>
         </li>
-        <?php foreach ($product_filter->children as $product_category) : ?>
+        <?php foreach ($product_filter->children as $product_category) : 
+        if (!get_field('hide', $product_category)): ?>
         <li class="u-mb2">
-            <a <?php if ($current_product_category_id == $product_category->term_id) echo "class=\"$selected_category_css_class\""; ?> href="<?php echo get_term_link($product_category, 'product_cat'); ?>"><?php echo $product_category->name; ?></a>
+            <a class="m-cat-<?php echo $product_category->slug; if ($current_product_category_id == $product_category->term_id) echo " $selected_category_css_class"; ?>" href="<?php echo get_term_link($product_category, 'product_cat'); ?>"><?php echo $product_category->name; ?></a>
         </li>
-        <?php endforeach; ?>
+        <?php endif; endforeach; ?>
     </ul>
     <?php endforeach; ?>
 </div>

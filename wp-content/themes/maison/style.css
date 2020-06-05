@@ -2,7 +2,7 @@
 Theme Name: Maison Tina
 Author: Kristian Kirov
 Description: Wordpress theme exclusivelly developed for the http://maisontina.com/ website
-Version: 0.0.12
+Version: 0.0.13
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: maison-tina
@@ -1901,6 +1901,21 @@ blockquote {
     margin: 20px 0;
 }
 
+.m-cat--selected {
+    color: #000;
+}
+
+.m-cat-outlet {
+    color: #d5246b;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 120%;
+}
+
+.m-cat-outlet.m-cat--selected, .m-cat-outlet:hover, .m-cat-outlet:focus {
+    color: #aa1d5a;
+}
+
 .woocommerce-message,
 .woocommerce-error,
 .woocommerce-info {
@@ -1984,19 +1999,15 @@ blockquote {
 .woocommerce div.product div.images .flex-control-thumbs {
     overflow: hidden;
     zoom: 1;
-    margin: 40px 0 20px 0;
+    margin: 40px -10px 20px 0;
     padding: 0;
 }
 
 .woocommerce div.product div.images .flex-control-thumbs li {
     width: 80px;
     float: left;
-    margin: 0 25px 20px 0;
+    margin: 0 10px 20px 0;
     list-style: none;
-}
-
-.woocommerce div.product div.images .flex-control-thumbs li:last-child {
-    margin-right: 0;
 }
 
 .woocommerce div.product div.images .flex-control-thumbs li img {

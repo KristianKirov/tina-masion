@@ -8,8 +8,12 @@ if ( have_posts() ) :
         $first_collection = get_field('firstcollection');
         $first_collection_url = get_permalink($first_collection);
         $second_collection = get_field('secondcollection');
-        $second_collection_url = get_permalink($second_collection); ?>
-<header class="section section--full section--background section--background-right section--head section--head--home section--white u-pr" style="background-image: url(<?php echo get_field('heroimage'); ?>)">
+        $second_collection_url = '';
+        if ($second_collection) : $second_collection_url = get_permalink($second_collection); endif;
+        $hero_image = get_field('heroimage');
+        $mobile_hero_image = get_field('mobileheroimage');
+        if ($mobile_hero_image): ?><style>@media (max-width: 425px) { .section--head--home { background-image: url(<?php echo $mobile_hero_image; ?>)!important; } }</style><?php endif; ?>
+<header class="section section--full section--background section--background-right section--head section--head--home section--white u-pr" style="background-image: url(<?php echo $hero_image; ?>)">
     <?php if (get_field('add_overlay')): require('inc/overlay.php'); endif; ?>
     <section class="section">
         <div class="container-fluid">
@@ -77,6 +81,7 @@ if ( have_posts() ) :
     </div>
 </section>
 
+<?php if ($second_collection): ?>
 <?php
 $second_collection_second_image_url = get_field('c2image2');
 if ($second_collection_second_image_url): ?>
@@ -125,6 +130,7 @@ if ($second_collection_second_image_url): ?>
         </div>
     </div>
 </section>
+<?php endif; ?>
 
 <section class="section section--background section--background-outter section--white section--overflow-bottom section--centered-heading" style="background-image: url('<?php echo get_field('maisonbackgroundimage'); ?>')">
     <div class="container-fluid">
