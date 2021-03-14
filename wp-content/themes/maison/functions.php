@@ -324,7 +324,7 @@ function maison_template_loop_product_div_open() {
 
 function maison_template_loop_product_quick_view() {
 	global $post;
-	echo '<a href="#product-' . $post->post_name . '" class="article-link-quickview u-tac u-ttu u-cblack" data-quick-view>' . __('Quickview', 'maison-tina') . '</a>';
+	echo '<a href="#product-' . $post->post_name . '" class="article-link-quickview u-cblack icon-eye" title="' . __('Quickview', 'maison-tina') . '" data-quick-view></a>';
 }
 
 function maison_template_loop_product_link_open() {
@@ -699,6 +699,7 @@ function maison_get_order_price_in_bgn_html($total_in_euro) {
 	$value_in_bgn = maison_euro_to_bgn($total_in_euro);
 	
 	$string_value_in_bgn = wc_price($value_in_bgn, array(
+		'currency' => 'BGN',
 		'price_format' => '%2$s&nbsp;BGN'
 	));
 
@@ -745,7 +746,7 @@ function maison_form_pay_format_product_total($total, $total_key, $order) {
 
 			return $total . $value_in_bgn_html;
 		}
-		elseif ($order_currency == 'EUR') {
+		elseif ($order_currency == 'BGN') {
 			$order_total = $order->get_total();
 			$value_in_euro_html = maison_get_order_price_in_euro_html($order_total);
 
@@ -773,6 +774,9 @@ function maison_get_euro_to_bgn_exchange_rate() {
 	$regions_data = WCPBC()->get_regions();
 	$euro_to_bgn_region = current(array_filter($regions_data, function ($r) { return $r['currency'] == 'BGN'; }));
 	$exchange_rate = $euro_to_bgn_region['exchange_rate'];
+	if (empty($exchange_rate)) {
+		$exchange_rate = 1.95583;
+	}
 
 	return $exchange_rate;
 }
