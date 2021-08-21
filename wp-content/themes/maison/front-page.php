@@ -40,7 +40,7 @@ if ( have_posts() ) :
 
 <section class="section u-pt7 u-pb7 section--centered-heading">
     <div class="container-fluid">
-        <h2><?php _e('Collections', 'maison-tina') ?></h2>
+        <h2><?php _e('Collection', 'maison-tina') ?></h2>
         <div class="row">
             <div class="col-xs-20 col-sm-10 col-md-6">
                 <div class="collection1-margin1">

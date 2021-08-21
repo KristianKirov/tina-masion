@@ -55,7 +55,7 @@ msgid "Discover"
 msgstr ""
 
 #: front-page.php:39
-msgid "Collections"
+msgid "Collection"
 msgstr ""
 
 #: front-page.php:55 front-page.php:95 inc/home-collection-media.php:26
