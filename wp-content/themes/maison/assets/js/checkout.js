@@ -68,4 +68,29 @@ jQuery(function ($) {
         updateStickySidebar();
         $window.onScrolling(updateStickySidebar);
     }
+
+    $(document.body).on('checkout_error', function () {
+        var notices = $('.woocommerce-NoticeGroup-checkout');
+        var errorNotices = notices.find('.woocommerce-error');
+
+        errorNotices.remove();
+
+        if (errorNotices.length) {
+            var errorsToggle = $('<a href="#">' + maison_frontend_data.read_more + '</a>').on('click', function (e) {
+                e.preventDefault();
+                anchorToggle = $(this);
+                anchorToggle
+                    .text(anchorToggle.text() == maison_frontend_data.read_more ? maison_frontend_data.read_less : maison_frontend_data.read_more)
+                    .parents('.errors-toggle').find('.errors-toggle-wrapper').toggle();
+            });
+            $('<div class="errors-toggle"></div>')
+                .append(
+                    $('<div class="errors-toggle-message">'+ maison_frontend_data.checkout_error + '</div>')
+                        .append(' ')
+                        .append(errorsToggle)
+                )
+                .append($('<div class="errors-toggle-wrapper"></div>').hide().append(errorNotices))
+                .appendTo(notices);
+        }
+    });
 });

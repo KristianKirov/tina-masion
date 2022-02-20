@@ -13,19 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <table class="shop_table woocommerce-checkout-review-order-table">
-	<!--<thead>
-		<tr>
-			<th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
-		</tr>
-	</thead>-->
 	<tbody>
 		<?php
 			do_action( 'woocommerce_review_order_before_cart_contents' );
 
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-				// var_dump($cart_item['data']);
-				// var_dump($cart_item);
 				$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
@@ -42,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail );
 							}
 							?>
-							<div class="u-dib u-mb1">
+							<div class="u-dib u-mb1 product-name-details">
 								<?php
 								$_product_name = $_product->get_title(); //apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;';
 								if ($product_permalink) {

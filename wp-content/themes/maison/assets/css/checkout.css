@@ -90,6 +90,7 @@ input[type=checkbox] {
 }
 
 .woocommerce-invalid .input-text,
+.woocommerce-invalid.wc-terms-and-conditions,
 .woocommerce-invalid .select2-container--default .select2-selection--single {
     box-shadow: inset 0 0 0 2px #f0523d;
 }
@@ -102,6 +103,19 @@ input[type=checkbox] {
 
 .woocommerce-error strong {
     color: #fff;
+}
+
+.errors-toggle-message {
+    color: #f0523d;
+    border: 1px solid #f0523d;
+    background-color: #f2dede;
+    padding: 1em 2em 1em 3.5em;
+    margin: 0 0 2em;
+}
+ 
+.errors-toggle-message a {
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 ul.woocommerce-error, ul.woocommerce-error li {
@@ -125,6 +139,11 @@ abbr.required {
 .woocommerce-checkout-review-order-table th {
     padding: 0 0 10px;
     vertical-align: top;
+}
+
+.woocommerce-checkout-review-order-table td:last-child,
+.woocommerce-checkout-review-order-table th:last-child {
+    width: 1%;
 }
 
 .woocommerce-checkout-review-order-table .attachment-shop_thumbnail {
@@ -194,7 +213,8 @@ pre {
 }
 
 .wc-terms-and-conditions {
-    margin: 20px 0 20px 0;
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
 }
 
 #customer_details label {
@@ -247,4 +267,9 @@ pre {
 
 .about_paypal {
     margin-left: 10px;
+}
+
+.product-name-details {
+    max-width: 150px;
+    max-width: calc(100% - 65px - 1ch);
 }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 14:49+0000\n"
+"POT-Creation-Date: 2022-02-20 14:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -50,27 +50,27 @@ msgstr ""
 msgid "Website by"
 msgstr ""
 
-#: front-page.php:21 front-page.php:33 page-collections.php:25
+#: front-page.php:25 front-page.php:37 page-collections.php:25
 msgid "Discover"
 msgstr ""
 
-#: front-page.php:39
+#: front-page.php:43
 msgid "Collection"
 msgstr ""
 
-#: front-page.php:55 front-page.php:95 inc/home-collection-media.php:26
+#: front-page.php:59 front-page.php:100 inc/home-collection-media.php:26
 msgid "View"
 msgstr ""
 
-#: front-page.php:138
+#: front-page.php:144
 msgid "Explore"
 msgstr ""
 
-#: front-page.php:142 single-collection.php:87
+#: front-page.php:148 single-collection.php:87
 msgid "About"
 msgstr ""
 
-#: front-page.php:151
+#: front-page.php:157
 msgid "Wear Tina"
 msgstr ""
 
@@ -86,68 +86,79 @@ msgstr ""
 msgid "Error on subscribing"
 msgstr ""
 
-#: functions.php:105
+#: functions.php:31
+msgid "Read more"
+msgstr ""
+
+#: functions.php:32
+msgid "Read less"
+msgstr ""
+
+#: functions.php:33
+msgid "Checkout processing error"
+msgstr ""
+
+#: functions.php:109
 msgid "Cart Counter"
 msgstr ""
 
-#: functions.php:124
+#: functions.php:128
 msgid "Add to Menu"
 msgstr ""
 
-#: functions.php:258 single-post.php:25
+#: functions.php:262 single-post.php:25
 msgid "Previous"
 msgstr ""
 
-#: functions.php:259 single-post.php:33
+#: functions.php:263 single-post.php:33
 msgid "Next"
 msgstr ""
 
-#: functions.php:283
+#: functions.php:287
 msgid "Shop"
 msgstr ""
 
-#: functions.php:327
+#: functions.php:331
 msgid "Quickview"
 msgstr ""
 
-#: functions.php:391
+#: functions.php:395
 msgid "Description"
 msgstr ""
 
-#: functions.php:465 functions.php:473
+#: functions.php:479 functions.php:487
 msgid "This is a gift"
 msgstr ""
 
-#: functions.php:473
+#: functions.php:487
 msgid "Yes"
 msgstr ""
 
-#: functions.php:473
+#: functions.php:487
 msgid "No"
 msgstr ""
 
-#: functions.php:538 functions.php:552
+#: functions.php:556 functions.php:570
 msgid "Sold Out"
-msgstr ""
-
-#: functions.php:701
-#, php-format
-msgid ""
-"<strong>*</strong> Please have in mind that this is carried out and "
-"processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in "
-"euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly "
-"differ from the rate of the bank which is responsible for the transaction to "
-"your card account!"
 msgstr ""
 
 #: functions.php:709
 #, php-format
 msgid ""
-"<strong>*</strong> Please have in mind that this is carried out and "
-"processed in currency <strong>Euro (EUR)</strong>! The prices in Bulgarian "
-"Levs (BGN) are calculated at a rate of %s Euro for 1 BGN. This rate may "
-"slightly differ from the rate of the bank which is responsible for the "
-"transaction to your card account!"
+"Please have in mind that this is carried out and processed in currency "
+"<strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at "
+"a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of "
+"the bank which is responsible for the transaction to your card account!"
+msgstr ""
+
+#: functions.php:717
+#, php-format
+msgid ""
+"Please have in mind that this is carried out and processed in currency "
+"<strong>Euro (EUR)</strong>! The prices in Bulgarian Levs (BGN) are "
+"calculated at a rate of %s Euro for 1 BGN. This rate may slightly differ "
+"from the rate of the bank which is responsible for the transaction to your "
+"card account!"
 msgstr ""
 
 #: home.php:33 home.php:42
@@ -183,7 +194,7 @@ msgstr ""
 msgid "Full Width"
 msgstr ""
 
-#: product-modal.php:23
+#: product-modal.php:25
 msgid "View Full Item"
 msgstr ""
 
@@ -219,15 +230,15 @@ msgstr ""
 msgid "Continue Shopping."
 msgstr ""
 
-#: woocommerce/cart/cart.php:35
+#: woocommerce/cart/cart.php:39
 msgid "Item"
 msgstr ""
 
-#: woocommerce/cart/cart.php:36 woocommerce/global/quantity-input.php:23
+#: woocommerce/cart/cart.php:40 woocommerce/global/quantity-input.php:23
 msgid "Quantity"
 msgstr ""
 
-#: woocommerce/cart/cart.php:37
+#: woocommerce/cart/cart.php:41
 msgid "Price"
 msgstr ""
 
@@ -251,7 +262,7 @@ msgstr ""
 msgid "Additional Information"
 msgstr ""
 
-#: woocommerce/checkout/review-order.php:73
+#: woocommerce/checkout/review-order.php:65
 msgid "Click here to enter your promo code."
 msgstr ""
 

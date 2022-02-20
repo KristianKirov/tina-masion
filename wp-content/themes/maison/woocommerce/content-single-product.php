@@ -33,6 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="row article-details">
 		<div class="col-sm-10">
+			<div class="product-details--mobile">
+			<?php woocommerce_template_single_title(); ?>
+			</div>
 			<div class="u-pr">
 			<?php
 				/**

@@ -14,11 +14,13 @@ the_post(); ?>
         <div class="col-sm-9">
             <div class="product-details">
                 <h1 class="product-heading"><?php the_title(); woocommerce_template_single_price(); ?></h1>
+                <div class="js-read-more" data-rm-words="25">
+                    <?php
+                    woocommerce_template_single_excerpt();
+                    require 'inc/product-simple-attributes.php';
+                    ?>
+                </div>
                 <?php
-                woocommerce_template_single_excerpt();
-                
-                require 'inc/product-simple-attributes.php';
-
                 woocommerce_template_single_add_to_cart();
                 echo '<a href="' . get_permalink() . '" class="u-ttu">' . __('View Full Item', 'maison-tina') . '</a>';
                 ?>

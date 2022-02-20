@@ -5,28 +5,28 @@
         <section class="section">
             <div class="nav-wrapper">
                 <div class="nav-section">
-                    <?php wp_nav_menu(array('theme_location' => 'top-nav-left', 'container' => false)); ?>
-
-                    <a href="<?php echo home_url('/') ?>" class="logo">
-                        <span class="img"></span>
-                    </a>
-
-                    <ul class="mobile-only-menu">
-                        <li><?php do_action('maison_mobile_cart_link'); ?></li>
-                    </ul>
-                </div>
-                
-                <div class="nav-section u-tar">
-                    <?php
-                        wp_nav_menu(array('theme_location' => 'top-nav-right', 'container' => false));
-                        qtranxf_generateLanguageSelectCode(array('type' => 'text'));
-                    ?>
-
                     <button type="button" class="nav-toggle js-nav-mobile-menu-toggle">
                         <span class="toggle-bar"></span>
                         <span class="toggle-bar"></span>
                         <span class="toggle-bar"></span>
                     </button>
+
+                    <?php
+                    qtranxf_generateLanguageSelectCode(array('type' => 'text'));
+                    wp_nav_menu(array('theme_location' => 'top-nav-left', 'container' => false));
+                    ?>
+
+                    <a href="<?php echo home_url('/') ?>" class="logo">
+                        <span class="img"></span>
+                    </a>
+                </div>
+                
+                <div class="nav-section u-tar">
+                    <?php wp_nav_menu(array('theme_location' => 'top-nav-right', 'container' => false)); ?>
+
+                    <ul class="mobile-only-menu">
+                        <li><?php do_action('maison_mobile_cart_link'); ?></li>
+                    </ul>
                 </div>
             </div>
         </section>

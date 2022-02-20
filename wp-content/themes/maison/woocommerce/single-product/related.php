@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( $related_products ) : ?>
 
-	<section class="related products section section--full u-pt7 section--centered-heading">
+	<section class="related products section section--full u-pt3 section--centered-heading">
 		<div class="container-fluid">
 
 			<h2><?php esc_html_e( 'Related products', 'woocommerce' ); ?></h2>

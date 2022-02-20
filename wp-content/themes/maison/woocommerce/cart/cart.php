@@ -24,19 +24,23 @@ wc_print_notices();
 
 do_action( 'woocommerce_before_cart' ); ?>
 
+<div class="u-tac mobile-only u-mb2">
+	<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
+</div>
+
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<div class="table-container--responsive u-mb3">
-		<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table--full" cellspacing="0">
+	<div class="table-container--responsive u-mb1">
+		<table class="shop_table shop_table--cart shop_table_responsive cart woocommerce-cart-form__contents table--full" cellspacing="0">
 			<thead>
 				<tr>
 					<!--<th class="product-thumbnail">&nbsp;</th>-->
 					<th class="product-name u-tal u-fwl u-fs12" colspan="2"><?php _e('Item', 'maison-tina') ?></th>
-					<th class="product-quantity u-tac u-fwl u-fs12"><?php _e('Quantity', 'maison-tina') ?></th>
-					<th class="product-price u-tar u-fwl u-fs12"><?php _e('Price', 'maison-tina') ?></th>
-					<!--<th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>-->
-					<th class="product-remove">&nbsp;</th>
+					<th class="product-quantity u-tac u-fwl u-fs12 desktop-only"><?php _e('Quantity', 'maison-tina') ?></th>
+					<th class="product-price u-tac u-fwl u-fs12 desktop-only"><?php _e('Price', 'maison-tina') ?></th>
+					<th class="product-subtotal u-tar u-fwl u-fs12 desktop-only"><?php _e( 'Total', 'woocommerce' ); ?></th>
+					<!-- <th class="product-remove">&nbsp;</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -54,7 +58,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 							<td class="product-thumbnail">
 								<?php
-									$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+									$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image('shop_catalog', array('class' => 'responsive')), $cart_item, $cart_item_key );
 
 									if ( ! $product_permalink ) {
 										echo $thumbnail;
@@ -64,13 +68,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 								?>
 							</td>
 
-							<td class="product-name u-cdark u-fs16 u-ttu u-tal" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
+							<td class="product-name u-cdark u-tal" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
 								<?php
+									echo '<div class="u-fs16 u-ttu u-cblack">';
 									if ( ! $product_permalink ) {
 										echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;';
 									} else {
 										echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key );
 									}
+									echo '</div>';
 
 									// Meta data
 									echo WC()->cart->get_item_data( $cart_item );
@@ -79,6 +85,17 @@ do_action( 'woocommerce_before_cart' ); ?>
 									if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
 										echo '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>';
 									}
+
+									echo '<div class="desktop-only u-mt1 u-lhs">';
+									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
+										'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">%s</a>',
+										esc_url( WC()->cart->get_remove_url( $cart_item_key ) ),
+										__( 'Remove this item', 'woocommerce' ),
+										esc_attr( $product_id ),
+										esc_attr( $_product->get_sku() ),
+										__( 'Remove this item', 'woocommerce' )
+									), $cart_item_key );
+									echo '</div>';
 								?>
 							</td>
 
@@ -99,26 +116,28 @@ do_action( 'woocommerce_before_cart' ); ?>
 								?>
 							</td>
 
-							<td class="product-price u-tar" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
+							<td class="product-price u-tac" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
+								<span class="mobile-only"><?php echo $cart_item['quantity']; ?> &times;</span>
 								<?php
 									echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
 								?>
 							</td>
 
-							<!--<td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
+							<td class="product-subtotal u-tar desktop-only" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
 								<?php
 									echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );
 								?>
-							</td>-->
+							</td>
 
-							<td class="product-remove u-cblack u-tar">
+							<td class="product-remove mobile-only u-cblack u-tar u-lhs">
 								<?php
 									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-										'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+										'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">%s</a>',
 										esc_url( WC()->cart->get_remove_url( $cart_item_key ) ),
 										__( 'Remove this item', 'woocommerce' ),
 										esc_attr( $product_id ),
-										esc_attr( $_product->get_sku() )
+										esc_attr( $_product->get_sku() ),
+										__( 'Remove this item', 'woocommerce' )
 									), $cart_item_key );
 								?>
 							</td>
@@ -131,16 +150,17 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<?php do_action( 'woocommerce_cart_contents' ); ?>
 
 				<tr>
-					<td colspan="6" class="actions">
-
+					<td colspan="3" class="product-coupon">
 						<?php if ( wc_coupons_enabled() ) { ?>
 							<div class="coupon">
-								<label for="coupon_code"><?php _e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>" />
+								<input type="text" name="coupon_code" class="input-text control u-wa u-mb1" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
+								<input type="submit" class="button btn btn-medium btn-sec u-wa u-mb1" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>" />
 								<?php do_action( 'woocommerce_cart_coupon' ); ?>
 							</div>
 						<?php } ?>
-
-						<input type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" />
+					</td>
+					<td colspan="2" class="product-actions u-tar">
+						<input type="submit" class="button btn btn-medium btn-sec u-wa u-mb1" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" />
 
 						<?php do_action( 'woocommerce_cart_actions' ); ?>
 
@@ -150,12 +170,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				<?php do_action( 'woocommerce_after_cart_contents' ); ?>
 			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="4">&nbsp;</td>
-					<td class="u-tar"><div class="u-mt1 u-fs16"><?php _e('Subtotal', 'woocommerce') ?> <?php wc_cart_totals_subtotal_html(); ?></div></td>
-				</tr>
-			</tfoot>
 		</table>
 	</div>
 	<?php do_action( 'woocommerce_after_cart_table' ); ?>

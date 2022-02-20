@@ -27,7 +27,7 @@
                     <div class="col-xs-offset-1 col-xs-6 col-sm-6 col-md-3">
                         <h3><?php _e('Follow Tina', 'maison-tina') ?></h3>
                         <nav class="share-panel">
-                        <a href="https://www.facebook.com/tinasocialclub"><span class="icon-facebook"></span></a>
+                        <a href="https://www.facebook.com/maisontinaofficial"><span class="icon-facebook"></span></a>
                         <a href="https://www.instagram.com/maison_tina/"><span class="icon-instagram"></span></a>
                         <!--<a href="/missing"><span class="icon-pinterest"></span></a>-->
                         </nav>
@@ -38,7 +38,7 @@
             <footer class="mobile-only">
                 <div class="mobile-footer-content">
                     <nav class="share-panel">
-                        <a href="https://www.facebook.com/tinasocialclub"><span class="icon-facebook"></span></a>
+                        <a href="https://www.facebook.com/maisontinaofficial"><span class="icon-facebook"></span></a>
                         <a href="https://www.instagram.com/maison_tina/"><span class="icon-instagram"></span></a>
                         <!--<a href="/missing"><span class="icon-pinterest"></span></a>-->
                     </nav>

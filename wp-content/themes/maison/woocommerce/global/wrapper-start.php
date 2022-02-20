@@ -13,5 +13,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<section class="section u-pt3 u-pb3">
+<section class="section u-pt3 u-pb3 u-m-pt1">
     <div class="container-fluid">

@@ -27,12 +27,16 @@ function maison_scripts() {
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 		'ok_thanks' => __('OK, Thanks', 'maison-tina'),
 		'thank_you_for_subs' => __('Thank you for subscribing', 'maison-tina'),
-		'error_on_subs' => __('Error on subscribing', 'maison-tina')
+		'error_on_subs' => __('Error on subscribing', 'maison-tina'),
+		'read_more' => __('Read more', 'maison-tina'),
+		'read_less' => __('Read less', 'maison-tina'),
+		'checkout_error' => __('Checkout processing error', 'maison-tina')
 	);
 
     wp_register_script( 'maison-global', get_theme_file_uri("/assets/js/global$resources_suffix.js" ), array( 'jquery' ), $maison_theme_version, true );
 	wp_localize_script( 'maison-global', 'maison_frontend_data', $frontend_data );
 	wp_enqueue_script ( 'maison-global' );
+	wp_add_inline_script('maison-global', 'jQuery(".woocommerce-message > .lity-modal-notice").parent().hide();', 'before');
 
 	wp_enqueue_script('litebox-js', get_theme_file_uri( '/assets/js/lity.min.js' ), array( 'jquery' ), '2.2.2', true );
 
@@ -259,7 +263,7 @@ function mainson_woocommerce_breadcrumb($args = array()) {
 		$next_post_link = get_next_post_link('%link', __('Next', 'maison-tina') . ' &gt;', true, '', 'product_cat');
 
 		if ($prev_post_link || $next_post_link) {
-			echo '<div class="u-fr u-cblack u-mb1">';
+			echo '<div class="u-fr u-cblack u-mb1 desktop-only">';
 			echo $prev_post_link;
 			if ($prev_post_link && $next_post_link) echo ' / ';
 			echo $next_post_link;
@@ -423,6 +427,17 @@ function maison_product_simple_attributes() {
 
 add_action('woocommerce_single_product_summary', 'maison_product_simple_attributes', 20);
 
+function maison_begin_exandable_section() {
+	echo '<div class="js-read-more" data-rm-words="25">';
+}
+
+function maison_end_exandable_section() {
+	echo '</div>';
+}
+
+add_action( 'woocommerce_single_product_summary', 'maison_begin_exandable_section', 15 );
+add_action( 'woocommerce_single_product_summary', 'maison_end_exandable_section', 25 );
+
 function maison_single_product_additional_links() {
 	wp_nav_menu(array(
 		'theme_location' => 'single-product-additional',
@@ -450,7 +465,7 @@ add_theme_support( 'wc-product-gallery-lightbox' );
 //add_theme_support( 'wc-product-gallery-zoom' );
 
 function maison_is_attribute_in_product_name($is_in_name) {
-	if (is_checkout()) {
+	if (is_checkout() || is_cart()) {
 		return false;
 	}
 
@@ -459,7 +474,6 @@ function maison_is_attribute_in_product_name($is_in_name) {
 add_filter('woocommerce_is_attribute_in_product_name', 'maison_is_attribute_in_product_name');
 
 function maison_update_checkout_fields($fields) {
-	// var_dump($fields['order']);
 	$fields['order']['is_gift'] = array(
 		'type' => 'checkbox',
 		'label' => __('This is a gift', 'maison-tina')
@@ -482,6 +496,10 @@ function maison_checkout_update_order_meta($order_id, $data) {
 	update_post_meta( $order_id, 'is_gift', $is_gift);
 }
 add_action( 'woocommerce_checkout_update_order_meta', 'maison_checkout_update_order_meta', 10, 2);
+
+// remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form');
+
+// add_action('woocommerce_checkout_after_customer_details', 'woocommerce_checkout_coupon_form', 10);
 
 add_filter('woocommerce_ship_to_different_address_checked', '__return_false');
 
@@ -555,6 +573,15 @@ function maison_woocommerce_product_single_add_to_cart_text($text, $product) {
 	return $text;
 }
 add_filter('woocommerce_product_single_add_to_cart_text', 'maison_woocommerce_product_single_add_to_cart_text', 10, 2);
+
+function maison_single_product_carousel_options($options) {
+	$options['controlNav'] = 'paging';
+	$options['directionNav'] = true;
+
+	return $options;
+}
+
+add_filter('woocommerce_single_product_carousel_options', 'maison_single_product_carousel_options');
 
 add_action('woocommerce_thankyou_bacs', 'maison_thankyou_bacs_start', 8);
 function maison_thankyou_bacs_start() {
@@ -660,7 +687,7 @@ function render_mobile_cart_link() {
 }
 add_action('maison_mobile_cart_link', 'render_mobile_cart_link');
 
-function maison_woocommerce_gateway_description($description, $id) {
+function maison_woocommerce_gateway_icon($icon, $id) {
 	if (($id == 'maison_fibank_gateway' || $id == 'paypal') && is_checkout()) {
 		global $wp;
 		$current_curency = '';
@@ -673,27 +700,31 @@ function maison_woocommerce_gateway_description($description, $id) {
 			$current_curency = WCPBC_Frontend_Pricing::get_currency('');
 		}
 
+		$tooltip_start = ' <span class="with-tooltip">*?<span class="tooltip tooltip--bottom-center">';
+		$tooltip_end = '</span></span>';
 		if ($id == 'maison_fibank_gateway') {
 			if (empty($current_curency) || $current_curency == 'EUR') {
-				$description .=
-					'<div class="woocommerce-info u-mb1">' .
-					sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), maison_get_euro_to_bgn_exchange_rate()) .
-					'</div>';
+				$icon = 
+					$tooltip_start .
+					sprintf(__('Please have in mind that this is carried out and processed in currency <strong>Bulgarian Lev (BGN)</strong>! The prices in euros are calculated at a rate of %s BGN for 1 Euro. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), maison_get_euro_to_bgn_exchange_rate()) .
+					$tooltip_end .
+					$icon;
 			}
 		}
 		elseif ($id == 'paypal') {
 			if ($current_curency == 'BGN') {
-				$description .=
-					'<div class="woocommerce-info u-mb1">' .
-					sprintf(__('<strong>*</strong> Please have in mind that this is carried out and processed in currency <strong>Euro (EUR)</strong>! The prices in Bulgarian Levs (BGN) are calculated at a rate of %s Euro for 1 BGN. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), round(maison_get_bgn_to_euro_exchange_rate(), 5)) .
-					'</div>';
+				$icon = 
+					$tooltip_start .
+					sprintf(__('Please have in mind that this is carried out and processed in currency <strong>Euro (EUR)</strong>! The prices in Bulgarian Levs (BGN) are calculated at a rate of %s Euro for 1 BGN. This rate may slightly differ from the rate of the bank which is responsible for the transaction to your card account!', 'maison-tina'), round(maison_get_bgn_to_euro_exchange_rate(), 5)) .
+					$tooltip_end .
+					$icon;
 			}
 		}
 	}
 
-	return $description;
+	return $icon;
 }
-add_filter('woocommerce_gateway_description', 'maison_woocommerce_gateway_description', 10, 2);
+add_filter('woocommerce_gateway_icon', 'maison_woocommerce_gateway_icon', 10, 2);
 
 function maison_get_order_price_in_bgn_html($total_in_euro) {
 	$value_in_bgn = maison_euro_to_bgn($total_in_euro);
@@ -718,19 +749,21 @@ function maison_get_order_price_in_euro_html($total_in_bgn) {
 }
 
 function maison_cart_totals_order_total_html($value) {
-	$customer_currency = WCPBC_Frontend_Pricing::get_currency(false);
-	// Default currency or EUR
-	if (empty($customer_currency) || $customer_currency == 'EUR') {
-		$cart_total_in_euro = WC()->cart->total;
-		$value_in_bgn_html = maison_get_order_price_in_bgn_html($cart_total_in_euro);
+	if (is_checkout()) {
+		$customer_currency = WCPBC_Frontend_Pricing::get_currency(false);
+		// Default currency or EUR
+		if (empty($customer_currency) || $customer_currency == 'EUR') {
+			$cart_total_in_euro = WC()->cart->total;
+			$value_in_bgn_html = maison_get_order_price_in_bgn_html($cart_total_in_euro);
 
-		return $value . $value_in_bgn_html;
-	}
-	elseif ($customer_currency == 'BGN') {
-		$cart_total_in_bgn = WC()->cart->total;
-		$value_in_euro_html = maison_get_order_price_in_euro_html($cart_total_in_bgn);
+			return $value . $value_in_bgn_html;
+		}
+		elseif ($customer_currency == 'BGN') {
+			$cart_total_in_bgn = WC()->cart->total;
+			$value_in_euro_html = maison_get_order_price_in_euro_html($cart_total_in_bgn);
 
-		return $value . $value_in_euro_html;
+			return $value . $value_in_euro_html;
+		}
 	}
 
 	return $value;
@@ -805,3 +838,20 @@ function maison_bgn_to_euro_exchange_rate($value) {
 }
 add_filter('option_wc_settings_paypal_currency_converter_manual_exchange_rate', 'maison_bgn_to_euro_exchange_rate');
 add_filter('default_option_wc_settings_paypal_currency_converter_manual_exchange_rate', 'maison_bgn_to_euro_exchange_rate');
+
+
+function maison_add_to_cart_message_html($message, $products) {
+	ob_start();
+	require 'inc/added-to-cart-modal.php';
+	$products_added_message = ob_get_clean();
+
+	return $products_added_message;
+}
+add_filter('wc_add_to_cart_message_html', 'maison_add_to_cart_message_html', 10, 2);
+
+function maison_kses_allowed_html( $allowed, $context ) {
+    $allowed[ 'a' ][ 'data-lity-close' ] = true;
+	$allowed[ 'button' ][ 'data-lity-close' ] = true;
+    return $allowed;
+}
+add_filter( 'wp_kses_allowed_html', 'maison_kses_allowed_html', 10, 2 );
