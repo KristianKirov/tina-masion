@@ -921,7 +921,7 @@ function maison_kses_allowed_html( $allowed, $context ) {
 add_filter( 'wp_kses_allowed_html', 'maison_kses_allowed_html', 10, 2 );
 
 function maison_output_related_products_args($args) {
-	$args['posts_per_page'] = 6;
+	$args['posts_per_page'] = 8;
 	$args['columns'] = 1;
 
 	return $args;
