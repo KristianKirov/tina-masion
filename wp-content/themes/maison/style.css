@@ -2,7 +2,7 @@
 Theme Name: Maison Tina
 Author: Kristian Kirov
 Description: Wordpress theme exclusivelly developed for the http://maisontina.com/ website
-Version: 0.0.15
+Version: 0.0.16
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: maison-tina
@@ -93,10 +93,10 @@ Domain Path: /languages
 }
 
 .section--footer a {
-    font-family: 'Poppins', Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', 'Montserrat', Helvetica, Arial, sans-serif;
     font-size: 13px;
     letter-spacing: 0.153846em;
-    color: #8a8a92;
+    color: #757575;
     text-transform: uppercase;
 }
 
@@ -183,7 +183,7 @@ Domain Path: /languages
 .nav-top {
     position: absolute;
     width: 100%;
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 0;
     line-height: 20px;
@@ -270,36 +270,6 @@ Domain Path: /languages
     /*text-decoration: none;*/
 }
 
-.nav-top .sub-menu {
-    position: absolute;
-    display: none;
-}
-
-.nav-top .sub-menu > li {
-    display: block;
-}
-
-.nav-top .sub-menu > li a {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    background-image: none !important;
-}
-
-.nav-top .sub-menu {
-    transform: translateY(-46px);
-}
-
-.nav-top--fixed .sub-menu {
-    background-color: #fff;
-    border: 1px solid #cfd0d5;
-    border-top: none;
-    transform: translateX(1px);
-}
-
-.nav-top .sub-menu--open {
-    display: block;
-}
-
 .nav-top--fixed ul a {
     padding-top: 16px;
     padding-bottom: 16px;
@@ -357,7 +327,7 @@ Domain Path: /languages
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%206%207%27%20fill%3D%22%23fff%22%3E%3Cpath%20d%3D%27M00%200%20L01%200%20L6%207%20L05%207%20Z%27%20%2F%3E%3C%2Fsvg%3E);
 }
 
-.nav-toggle, .nav-mobile-menu, .language-chooser, .qtranxs_widget_end, .mobile-only-menu, .language-chooser > .active {
+.nav-toggle, .nav-mobile-menu, .nav-mobile-menu-curtain, .language-chooser, .qtranxs_widget_end, .mobile-only-menu, .language-chooser > .active {
     display: none;
 }
 
@@ -461,13 +431,14 @@ Domain Path: /languages
 
     .nav-mobile-menu {
         display: block;
-        width: 100%;
+        width: 90%;
+        max-width: 400px;
         z-index: 200;
         position: fixed;
-        background-color: #000;
-        color: #fff;
+        top: 0;
+        background-color: #fff;
         padding-top: 20px;
-        max-height: 100%;
+        height: 100%;
         overflow-y: auto;
 
         -webkit-transition: transform .3s ease;
@@ -475,6 +446,22 @@ Domain Path: /languages
         -o-transition: transform .3s ease;
         -ms-transition: transform .3s ease;
         transition: transform .3s ease;
+    }
+
+    .nav-mobile-menu-curtain {
+        display: block;
+        content: '';
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgb(0 0 0 / 35%);
+        z-index: 100;
+    }
+
+    .nav-mobile-menu-curtain--collapsed {
+        display: none;
     }
 
     .nav-mobile-menu header {
@@ -502,27 +489,72 @@ Domain Path: /languages
         overflow-y: auto;
     }
 
+        .nav-mobile-menu ul a {
+            display: block;
+        }
+
     .nav-mobile-menu li {
         margin-bottom: 15px;
     }
 
+        .nav-mobile-menu .current-menu-item a {
+            color: #000;
+            text-decoration: underline;
+        }
+
     .nav-mobile-menu .main-nav {
         font-size: 22px;
         font-weight: 600;
-        font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
-    }
-
-    .nav-mobile-menu .main-nav a {
-        color: #fff;
+        font-family: 'Josefin Sans', 'Montserrat', Helvetica, Arial, sans-serif;
+        color: #000;
         text-transform: uppercase;
     }
 
-    .nav-mobile-menu .secondary-nav {
-        font-size: 13px;
+    .nav-mobile-menu .main-nav .sub-menu {
+        color: #757575;
+        font-size: 15px;
+        padding-left: 15px;
+        display: none;
     }
 
-    .nav-mobile-menu .secondary-nav a {
-        color: #8a8a92;
+        .nav-mobile-menu .main-nav .sub-menu li {
+            margin-bottom: 5px;
+        }
+
+                .nav-mobile-menu .main-nav .sub-menu li:last-child {
+                    margin-bottom: 0;
+                }
+    
+
+        .nav-mobile-menu .main-nav .menu-item-has-children > a {
+            position: relative;
+        }
+
+                .nav-mobile-menu .main-nav .menu-item-has-children>a::after {
+                    display: block;
+                    position: absolute;
+                    content: '';
+                    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='25' height='25' viewBox='0 0 21 29' xml:space='preserve'><polyline fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' points='2,2 15,15 2,27 '></polyline></svg>") no-repeat;
+                    width: 25px;
+                    height: 25px;
+                    right: 5%;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            
+                .nav-mobile-menu .main-nav .menu-item-open-children>a::after {
+                    transform: translateY(-50%) rotate(90deg);
+                }
+
+        .nav-mobile-menu .main-nav .menu-item-open-children > .sub-menu {
+            display: block;
+        }
+
+                
+
+    .nav-mobile-menu .secondary-nav {
+        font-size: 13px;
+        color: #757575;
         text-transform: uppercase;
     }
 
@@ -849,7 +881,7 @@ a:hover, a:focus {
 }*/
 
 .link {
-    font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Helvetica, Arial, sans-serif;
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 0.2em;
@@ -893,7 +925,7 @@ a:hover, a:focus {
 }
 
 .hl {
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-weight: 600;
     line-height: 1.3;
 }
@@ -922,9 +954,9 @@ h1.small > small {
 }
 
 .product-details h1 .price {
-    color: #8a8a92;
+    color: #757575;
     font-size: 18px;
-    font-family: 'Poppins', Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', 'Montserrat', Helvetica, Arial, sans-serif;
     margin-bottom: 0;
     margin-top: 15px;
 }
@@ -1024,12 +1056,12 @@ dt, strong {
     }
 
     .section--centered-heading h2 {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 }
 
 h2 small, h3 small {
-    color: #8a8a92;
+    color: #757575;
     font-size: 20px;
     font-weight: 300;
 }
@@ -1068,7 +1100,7 @@ img.responsive, video.responsive {
 
 .copyright {
     text-transform: uppercase;
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 .copyright small {
@@ -1107,8 +1139,8 @@ img.responsive, video.responsive {
     display: block;
     position: relative;
     overflow: hidden;
-    margin-left: 10px;
-    margin-right: 10px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
 }
 
 .article figure {
@@ -1164,6 +1196,11 @@ img.responsive, video.responsive {
 .article a.article-link {
     color: #101010;
     display: block;
+}
+
+.article-title {
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: 300;
 }
 
 .article-link-quickview {
@@ -1385,11 +1422,11 @@ footer.mobile-only .scroll-home {
     border: 1px solid #cfd0d5;
     border-radius: 0;
     font: 300 13px 'Poppins', Helvetica, Arial, sans-serif;
-    color: #8a8a92;
+    color: #757575;
 }
 
 select.control {
-    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='15' height='15' viewBox='0 0 19 11' xml:space='preserve'><polyline fill='none' stroke='%238a8a92' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='2,2 9,9 17,2 '></polyline></svg>") no-repeat 95% 50%;
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='15' height='15' viewBox='0 0 19 11' xml:space='preserve'><polyline fill='none' stroke='%23757575' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='2,2 9,9 17,2 '></polyline></svg>") no-repeat 95% 50%;
     -moz-appearance: none; 
 	-webkit-appearance: none; 
 	appearance: none;
@@ -1420,7 +1457,7 @@ select.control {
     max-width: 100%;
     font-size: 16px;
     padding: 10px 20px;
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 .btn-medium {
@@ -1428,12 +1465,12 @@ select.control {
     max-width: 100%;
     font-size: 14px;
     padding: 10px 20px;
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 .btn-sec {
     background-color: #e6e6e6;
-    color: #8a8a92;
+    color: #757575;
 }
 
 .btn:hover, .btn:active, .btn:focus {
@@ -1725,7 +1762,7 @@ table th {
 }
 
 .post-date {
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1780,7 +1817,7 @@ table th {
 }
 
 blockquote {
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     text-align: center;
@@ -1790,7 +1827,7 @@ blockquote {
 }
 
 .post-sibling-link {
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 20px;
     text-transform: uppercase;
@@ -1799,7 +1836,7 @@ blockquote {
 
 .post-sibling-link small {
     font-size: 13px;
-    color: #8a8a92;
+    color: #757575;
 }
 
 .post-sibling-link:hover small {
@@ -1813,7 +1850,7 @@ blockquote {
 }
 
 .nav-sub ul {
-    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Josefin Sans', 'Montserrat', Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 0;
     text-transform: uppercase;
@@ -1835,7 +1872,7 @@ blockquote {
 }
 
 .article .price {
-    color: #8a8a92;
+    color: #757575;
 }
 
 .article .price ins {
@@ -1944,7 +1981,7 @@ blockquote {
 
 .product-details--mobile h1 {
     font-size: 28px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .lity-active, .lity-active body {
@@ -2033,6 +2070,10 @@ color: #000;
     margin-left: -13px;
 }
 
+.woocommerce-product-details__short-description {
+    font-size: 16px;
+}
+
 /* START product galery */
 
 .woocommerce div.product div.images.woocommerce-product-gallery {
@@ -2100,7 +2141,7 @@ color: #000;
     pointer-events: auto;
 }
 
-.woocommerce-product-gallery .flex-direction-nav li a {
+.woocommerce-product-gallery .flex-direction-nav li a, .row-slider-arrow {
     background-repeat: no-repeat;
     background-position: center;
     display: block;
@@ -2112,7 +2153,7 @@ color: #000;
     float: left;
 }
 
-.woocommerce-product-gallery .flex-direction-nav .flex-nav-prev a {
+.woocommerce-product-gallery .flex-direction-nav .flex-nav-prev a, .row-slider-arrow-left {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='15' height='46' viewBox='0 0 15 29' xml:space='preserve'%3E%3Cpolyline fill='none' stroke='%23000000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='15,0 0,15 15,29 '%3E%3C/polyline%3E%3C/svg%3E");
 }
 
@@ -2120,9 +2161,8 @@ color: #000;
     float: right;
 }
 
-.woocommerce-product-gallery .flex-direction-nav .flex-nav-next a {
+.woocommerce-product-gallery .flex-direction-nav .flex-nav-next a, .row-slider-arrow-right {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='15' height='46' viewBox='0 0 15 29' xml:space='preserve'%3E%3Cpolyline fill='none' stroke='%23000000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='0,0 15,15 0,29 '%3E%3C/polyline%3E%3C/svg%3E");
-    margin-left: 5px;
 }
 
 .woocommerce-product-gallery .flex-direction-nav .flex-disabled {
@@ -2394,6 +2434,7 @@ color: #000;
 
 .read-more__link {
     font-weight: 700;
+    color: #101010;
 }
 
 /* .read-more.is-inline,
@@ -2443,4 +2484,55 @@ color: #000;
     transform: translateY(0) translateX(-50%);
     transition-duration: 300ms;
     visibility: visible;
+}
+
+.row-slider {
+    display: flex;
+    align-items: stretch;
+}
+
+.row-slider-arrow {
+    width: 40px;
+    height: auto;
+    display: none;
+}
+
+.row-slider--active .row-slider-arrow {
+    display: block;
+}
+
+.row-slider-track-window {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.row-slider-track {
+    display: flex;
+    transition: transform 500ms ease-out;
+}
+
+.row-slider-track > * {
+    flex: 1;
+    min-width: 25%;
+}
+
+.related .row-slider {
+    margin-bottom: 50px;
+}
+
+.row-slider .article {
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width : 991px) {
+    .row-slider-track>* {
+        min-width: 33.3333%;
+    }
+}
+
+@media only screen and (max-width : 768px) {
+    .row-slider-track>* {
+        min-width: 50%;
+    }
 }

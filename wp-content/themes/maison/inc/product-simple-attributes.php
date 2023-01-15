@@ -19,7 +19,9 @@ if (count($product_attributes) > 0) {
             }
         }
 
+        echo '<strong>';
         echo wc_attribute_label( $product_attribute->get_name() ) . ': ';
+        echo '</strong>';
         echo apply_filters( 'woocommerce_attribute', wptexturize( implode( ', ', $product_attribute_values ) ), $product_attribute, $product_attribute_values );
         echo '<br />';
     }

@@ -213,10 +213,10 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'Poppins', Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', 'Montserrat', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.7;
-  color: #8a8a92;
+  color: #757575;
   background-color: #ffffff;
 }
 input,
@@ -310,7 +310,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Josefin Sans', 'Montserrat', Helvetica, Arial, sans-serif;
   font-weight: 300;
   line-height: 1.1;
   color: inherit;

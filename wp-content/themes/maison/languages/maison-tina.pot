@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 14:36+0000\n"
+"POT-Creation-Date: 2023-01-14 16:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -285,4 +285,7 @@ msgstr ""
 
 #. Author of the theme
 msgid "Kristian Kirov"
+msgstr ""
+
+msgid "You may also like"
 msgstr ""

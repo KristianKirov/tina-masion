@@ -246,7 +246,7 @@ pre {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #8a8a92;
+    background-color: #757575;
     color: #fff;
 }
 

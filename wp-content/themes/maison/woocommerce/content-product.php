@@ -11,14 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
+global $woocommerce_loop;
 
 
 // Ensure visibility
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
+
+$is_related_products_loop = is_product() && $woocommerce_loop['name'] == 'related';
 ?>
-<div id="<?php echo $product->get_slug(); ?>" <?php post_class('col-md-5 col-xs-10'); ?>>
+<div id="<?php echo $product->get_slug(); ?>" <?php post_class($is_related_products_loop ? 'col-md-5 col-xs-10' : ('col-md-6 col-xs-10' . ($woocommerce_loop["loop"] % 3 != 0 ? ' col-md-offset-1' : ''))) ?>>
 	<?php
 	/**
 	 * woocommerce_before_shop_loop_item hook.

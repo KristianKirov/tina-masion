@@ -6,4 +6,4 @@
  * @version     2.0.0
  */
 ?>
-<div class="row products cols-2-sm--equal-height cols-2-xs--equal-height cols-4-gt-md--equal-height">
+<div class="row products cols-2-sm--equal-height cols-2-xs--equal-height cols-3-gt-md--equal-height">

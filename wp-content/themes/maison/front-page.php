@@ -158,7 +158,7 @@ if ($second_collection_second_image_url): ?>
 
         <div class="row">
             <div class="col-md-offset-1 col-md-18">
-                <div class="row cols-2-sm--equal-height cols-2-xs--equal-height cols-4-gt-md--equal-height">
+                <div class="row cols-2-sm--equal-height cols-2-xs--equal-height cols-3-gt-md--equal-height">
                     <?php
                     $featured_products_tax_query = WC()->query->get_tax_query();
                     $featured_products_tax_query[] = array(
@@ -180,14 +180,16 @@ if ($second_collection_second_image_url): ?>
                     
                     $featured_products_query = new WP_Query($featured_products_query_args);
                     if ($featured_products_query->have_posts()) :
+                        $index = 0;
                         while ($featured_products_query->have_posts()) :
                             $featured_products_query->the_post();
                             $product_post = $featured_products_query->post;
                             ?>
-                            <div class="col-xs-10 col-md-5">
+                            <div class="col-xs-10 col-md-6<?php if ($index % 3 != 0) : echo ' col-md-offset-1'; endif; ?>">
                                 <?php require('inc/product-simple-view.php'); ?>
                             </div>
-                            <?php                            
+                            <?php
+                            $index++;
                         endwhile;
                     endif;
                     wp_reset_query();

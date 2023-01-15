@@ -32,10 +32,11 @@
         </section>
     </nav>
 
+    <div class="nav-mobile-menu-curtain nav-mobile-menu-curtain--collapsed js-nav-mobile-menu-toggle"></div>
     <div class="nav-mobile-menu nav-mobile-menu--collapsed">
         <div class="container-fluid">
             <header class="u-mb3">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/maison-logo-white.svg" />
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/maison-logo-black.svg" />
                 <button type="button" class="nav-close js-nav-mobile-menu-toggle">&times;</button>
             </header>
 

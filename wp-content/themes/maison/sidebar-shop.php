@@ -5,6 +5,8 @@
     function group_terms_hierarchically(Array &$cats, Array &$into, $parentId = 0)
     {
         foreach ($cats as $i => $cat) {
+            if (get_field('hide', $cat)) continue;
+
             if ($cat->parent == $parentId) {
                 $into[] = $cat;
                 unset($cats[$i]);
@@ -32,15 +34,14 @@
     <?php foreach ($product_hierarchical_categories as $product_filter) : ?>
     <h5 class="u-fs16"><?php echo $product_filter->name; ?></h5>
     <ul class="list-clean u-mb4">
-        <li class="u-mb2">
+        <li class="u-mb1">
             <a <?php if ($current_product_category_id == null) echo "class=\"$selected_category_css_class\""; ?> href="<?php echo $shop_page_url; ?>"><?php _e('All', 'maison-tina') ?></a>
         </li>
-        <?php foreach ($product_filter->children as $product_category) : 
-        if (!get_field('hide', $product_category)): ?>
-        <li class="u-mb2">
+        <?php foreach ($product_filter->children as $product_category) : ?>
+        <li class="u-mb1">
             <a class="m-cat-<?php echo $product_category->slug; if ($current_product_category_id == $product_category->term_id) echo " $selected_category_css_class"; ?>" href="<?php echo get_term_link($product_category, 'product_cat'); ?>"><?php echo $product_category->name; ?></a>
         </li>
-        <?php endif; endforeach; ?>
+        <?php endforeach; ?>
     </ul>
     <?php endforeach; ?>
 </div>

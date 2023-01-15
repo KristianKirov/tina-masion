@@ -49,7 +49,7 @@ function maison_scripts() {
 	}
 
 	wp_enqueue_script('blazy', get_theme_file_uri( '/assets/js/blazy.min.js' ), array(), '1.8.2', true );
-	wp_add_inline_script('blazy', 'new Blazy({ loadInvisible: true });');
+	wp_add_inline_script('blazy', 'window.blazyInstance = new Blazy({ loadInvisible: true });');
 }
 add_action('wp_enqueue_scripts', 'maison_scripts');
 
@@ -138,13 +138,65 @@ function maison_add_nav_menu_metabox(){
 }
 add_action('admin_head-nav-menus.php', 'maison_add_nav_menu_metabox');
 
+function maison_get_nav_menu_items($items, $menu, $args) {
+	if (is_admin()) return $items;
+
+	$items_to_expand = array_filter($items, function ($item) { return $item->type === 'taxonomy' && $item->object === 'product_cat' && in_array('menu-item-auto-fill', $item->classes); });
+	if (!empty($items_to_expand)) {
+		$expanded_items_menu_order = count($items);
+		foreach ( $items_to_expand as $key => $item_to_expand ) {
+			$child_terms = get_terms(array(
+				'taxonomy' => $item_to_expand->object,
+				'parent' => $item_to_expand->object_id,
+				'hide_empty' => false));
+
+			foreach ($child_terms as $child_term) {
+				$child_term_post = new WP_Post(new stdClass());
+				$child_term_post->ID = -$child_term->term_id;
+				$child_term_post->post_name = $child_term->slug;
+				$child_term_post->post_parent = $child_term->parent;
+				$child_term_post->menu_order = ++$expanded_items_menu_order;
+				$child_term_post->post_type = "nav_menu_item";
+				$child_term_post->db_id = $child_term->term_id;
+				$child_term_post->menu_item_parent = $item_to_expand->ID;
+				$child_term_post->object_id = $child_term->term_id;
+				$child_term_post->object = $child_term->taxonomy;
+				$child_term_post->type = $item_to_expand->type;
+				$child_term_post->type_label = $item_to_expand->type_label;
+				$child_term_post->url = get_term_link($child_term, $child_term->taxonomy);
+				$child_term_post->title = $child_term->name;
+				$child_term_post->classes = array();
+				$child_term_post->xfn = '';
+
+				$items[] = $child_term_post;
+			}
+
+			//$child_terms = get_term_children($item_to_expand->object_id, $item_to_expand->object);
+			//echo json_encode($items, JSON_PRETTY_PRINT);
+		}
+	}
+
+	foreach ($items as $key => $item) {
+		if (in_array('menu-item-rewrite-parent', $item->classes)) {
+			$parent_item_id = $item->menu_item_parent;
+			$parent_menu_item = current(array_filter($items, function ($parent_item) use ($parent_item_id) { return $parent_item->ID == $parent_item_id; }));
+			if (isset($parent_menu_item)) {
+				$parent_menu_item->url = $item->url;
+			}
+		}
+	}
+
+	return $items;
+}
+add_filter('wp_get_nav_menu_items', 'maison_get_nav_menu_items', 10, 3);
+
 function maison_update_woo_counter_nav_item($woo_counter_nav_item) {
 	$woo_counter_nav_item->url = WC()->cart->get_cart_url();
 	$woo_counter_nav_item->title = sprintf($woo_counter_nav_item->title, wp_kses_data(WC()->cart->get_cart_contents_count()));
 }
 
 function maison_nav_menu_items($items) {
-	$shop_page = (int)wc_get_page_id('shop');
+	// $shop_page = (int)wc_get_page_id('shop');
 	foreach ( $items as $key => $item ) {
 		if (!empty($item->url) && $item->url == '#maison-woo-counter') {
 			maison_update_woo_counter_nav_item($item);
@@ -153,16 +205,28 @@ function maison_nav_menu_items($items) {
 				$item->classes[] = 'current-menu-item';
 			}
 		}
-		else if ($item->object_id == $shop_page && $item->object === 'page') {
-			$first_product_category = get_terms(array('taxonomy' => 'product_cat', 'parent' => 0, 'number' => 1));
-			if (!empty($first_product_category)) {
-				$first_product_category =  current($first_product_category);
-				$first_product_category_child = get_terms(array('taxonomy' => 'product_cat', 'parent' => $first_product_category->term_id, 'number' => 1));
-				if (!empty($first_product_category_child)) {
-					$first_product_category_child = current($first_product_category_child);
-					$item->url = get_term_link($first_product_category_child, 'product_cat');
+		// else if ($item->object_id == $shop_page && $item->object === 'page') {
+		// 	$first_product_category = get_terms(array('taxonomy' => 'product_cat', 'parent' => 0, 'number' => 1));
+		// 	if (!empty($first_product_category)) {
+		// 		$first_product_category =  current($first_product_category);
+		// 		$first_product_category_child = get_terms(array('taxonomy' => 'product_cat', 'parent' => $first_product_category->term_id, 'number' => 1));
+		// 		if (!empty($first_product_category_child)) {
+		// 			$first_product_category_child = current($first_product_category_child);
+		// 			$item->url = get_term_link($first_product_category_child, 'product_cat');
+		// 		}
+		// 	}
+		// }
+
+		if ($item->current && !empty($item->menu_item_parent)) {
+			$item_parent = $item;
+			do {
+				$parent_item_id = $item->menu_item_parent;
+				$item_parent = current(array_filter($items, function ($parent_item) use ($parent_item_id) { return $parent_item->ID == $parent_item_id; }));
+				if (isset($item_parent)) {
+					$item_parent->classes[] = 'menu-item-open-children';
 				}
 			}
+			while (isset($item_parent) && !empty($item_parent->menu_item_parent));
 		}
 	}
 
@@ -323,7 +387,7 @@ add_action( 'woocommerce_after_shop_loop', 'maison_woocommerce_after_shop_loop',
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 function maison_template_loop_product_div_open() {
-	echo '<div class="article u-mb6">';
+	echo '<div class="article u-mb6 u-tac">';
 }
 
 function maison_template_loop_product_quick_view() {
@@ -362,7 +426,7 @@ remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_
 add_action( 'woocommerce_before_shop_loop_item_title', 'maison_template_loop_product_thumbnail', 10 );
 
 function woocommerce_template_loop_product_title() {
-	echo '<span class="hl u-ttu u-db">' . get_the_title() . '</span>';
+	echo '<span class="article-title u-ttu u-db">' . get_the_title() . '</span>';
 }
 
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
@@ -392,7 +456,7 @@ add_action( 'wp_ajax_nopriv_maison_load_product_quick_view', 'maison_load_produc
 
 function maison_woocommerce_short_description_add_label($content) {
 	if ($content) {
-		$content = __('Description', 'maison-tina') . ': ' . $content;
+		$content = '<strong>' . __('Description', 'maison-tina') . ': </strong>' . $content;
 	}
 
 	return $content;
@@ -855,3 +919,11 @@ function maison_kses_allowed_html( $allowed, $context ) {
     return $allowed;
 }
 add_filter( 'wp_kses_allowed_html', 'maison_kses_allowed_html', 10, 2 );
+
+function maison_output_related_products_args($args) {
+	$args['posts_per_page'] = 6;
+	$args['columns'] = 1;
+
+	return $args;
+}
+add_filter( 'woocommerce_output_related_products_args', 'maison_output_related_products_args', 20);
