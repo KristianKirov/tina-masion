@@ -33,8 +33,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="row article-details">
 		<div class="col-sm-10">
-			<div class="product-details--mobile">
-			<?php woocommerce_template_single_title(); ?>
+			<div class="product-details--mobile u-tac">
+				<div class="row">
+					<div class="col-xs-18 col-xs-offset-1"><?php woocommerce_template_single_title(); ?></div>
+				</div>
 			</div>
 			<div class="u-pr">
 			<?php

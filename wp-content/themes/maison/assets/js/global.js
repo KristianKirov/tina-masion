@@ -257,6 +257,8 @@
     var topNavNormalClass = $topNav.data('normalClass');
     var topNavCondensedClass = $topNav.data('condensedClass');
 
+    if (/ip(hone|od|ad)/i.test(window.navigator.userAgent)) $(document.body).addClass('mobile-apple-device');
+
     function updateTopNav() {
         var scrollTop = window.scrollY || window.pageYOffset;
         var isNavSticked = $topNav.data('sticked');

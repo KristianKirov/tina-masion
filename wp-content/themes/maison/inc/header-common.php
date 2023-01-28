@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;600&family=Montserrat:wght@100;300;600&family=Poppins:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;600&family=Montserrat:wght@100;300;400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 <?php wp_head(); global $separate_footer; $separate_footer = true; ?>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
